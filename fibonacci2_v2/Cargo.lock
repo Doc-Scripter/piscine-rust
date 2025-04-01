@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "find_factorial_v2"
+name = "fibonacci2_v2"
 version = "0.1.0"
