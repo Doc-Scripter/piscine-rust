@@ -3,5 +3,5 @@ pub fn insert(vec: &mut Vec<String>, val: String) {
 }
 
 pub fn at_index(slice: &[String], index: usize) -> &str {
-   &slice[index]
+   slice.get(index).map(|s  |s.as_str()).unwrap_or("")
 }
