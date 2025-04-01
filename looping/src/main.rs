@@ -8,11 +8,11 @@ fn main() -> io::Result<()> {
         );
         let mut input = String::new();
         stdin().read_line(&mut input)?;
+        count += 1;
         if input.trim() == "The letter e" {
             println!("Number of trials: {count}");
             break;
         }
-        count += 1;
     }
     Ok(())
 }
