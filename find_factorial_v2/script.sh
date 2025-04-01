@@ -1,0 +1,1 @@
+watch -n 0.01 cargo run .
