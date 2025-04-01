@@ -1,14 +1,12 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+pub fn fibonacci(n: u32) -> u32 {
+    let mut fib = vec![0, 1];
+    if n <= 1 {
+        return n;
     }
+
+    for i in 2..=n {
+        let next_fib=fib[(i as usize) - 1] + fib[(i as usize) - 2];
+        fib.push(next_fib);
+    }
+    fib[n as usize]
 }
