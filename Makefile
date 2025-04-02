@@ -1,5 +1,5 @@
 function:
-	$(eval folder := name_initials)
+	$(eval folder := ownership)
 	cargo new --lib $(folder)
 	cargo new $(folder)_v2
 	cd $(folder)_v2/src && touch lib.rs
