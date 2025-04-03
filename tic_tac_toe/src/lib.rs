@@ -3,12 +3,12 @@ pub fn tic_tac_toe(table: [[char; 3]; 3]) -> String {
     
     // Check if X wins
     if diagonals(players[0], table) || horizontal(players[0], table) || vertical(players[0], table) {
-        return "Player X won".to_string();
+        return "player X won".to_string();
     }
     
     // Check if O wins
     if diagonals(players[1], table) || horizontal(players[1], table) || vertical(players[1], table) {
-        return "Player O won".to_string();
+        return "player O won".to_string();
     }
     
     
