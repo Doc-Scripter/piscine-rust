@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := tic_tac_toe
+folder := arrange_it
 
 function:
 	cargo new --lib $(folder)
