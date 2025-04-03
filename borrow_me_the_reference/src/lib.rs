@@ -1,6 +1,16 @@
 pub fn delete_and_backspace(s: &mut String) {
     let mut chars: Vec<char> = s.chars().collect();
     let mut i = 0;
+    let mut j = chars.len()-1;
+    // *s=chars.into_iter().rev().collect();
+    while j >0{
+        if chars[j] == '+'{
+            chars.remove(j);
+            j-=1
+        }else{
+            break
+        }
+    }
     loop{
     while i < chars.len() {
         if chars[i] == '-' {
@@ -24,7 +34,7 @@ pub fn delete_and_backspace(s: &mut String) {
             i += 1;
         }
     }
-    if i==chars.len()&&(chars.contains(&'-')||chars.contains(&'+')){
+    if i>=chars.len()-1&&(chars.contains(&'-')||chars.contains(&'+')){
         i=0
     }else{
         break
