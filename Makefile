@@ -1,5 +1,5 @@
 function:
-	$(eval folder := copy)
+	$(eval folder := borrow_me_the_reference)
 	cargo new --lib $(folder)
 	cargo new $(folder)_v2
 	cd $(folder)_v2/src && touch lib.rs

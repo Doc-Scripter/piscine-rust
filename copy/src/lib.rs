@@ -16,5 +16,5 @@ pub fn vec_function(b: Vec<i32>) -> (Vec<i32>, Vec<f64>) {
         .iter()
         .map(|&c| (c as f64).abs().ln())
         .collect();
-    (b.clone(), natural_absolute)
+    (&b, natural_absolute)
 }
