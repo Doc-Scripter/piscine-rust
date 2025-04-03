@@ -13,7 +13,7 @@ pub fn delete_and_backspace(s: &mut String) {
                
                 chars.remove(i);
             }
-        } else if i<chars.len()&&chars[i] == '+'&&chars[i+1]!='+' {
+        } else if i+1<=chars.len()&&chars[i] == '+'&&chars[i+1]!='+' {
            
             chars.remove(i);
             if i <= chars.len() {
