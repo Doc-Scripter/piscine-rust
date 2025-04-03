@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := borrow_me_the_reference
+folder := tic_tac_toe
 
 function:
 	cargo new --lib $(folder)
