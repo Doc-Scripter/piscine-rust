@@ -24,7 +24,7 @@ pub fn delete_and_backspace(s: &mut String) {
             i += 1;
         }
     }
-    if i>=chars.len()-1&&(chars.contains(&'-')||chars.contains(&'+')){
+    if i==chars.len()&&(chars.contains(&'-')||chars.contains(&'+')){
         i=0
     }else{
         break
