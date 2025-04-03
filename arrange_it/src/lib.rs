@@ -1,42 +1,70 @@
 pub fn arrange_phrase(phrase: &str) -> String {
-    // Split the phrase into words
-    let mut words: Vec<&str> = phrase.split_whitespace().collect();
+    // Count the number of words to pre-allocate the vector
+    let word_count = phrase.split_whitespace().count();
     
-    // Sort words based on the numeric value in each word
-    words.sort_by(|a, b| {
-        let a_digit = extract_number(a);
-        let b_digit = extract_number(b);
-        
-        // Primary sort by whether the word has a digit
-        match (a_digit, b_digit) {
-            (Some(a_num), Some(b_num)) => a_num.cmp(&b_num), // If both have digits, sort by the numeric value
-            (Some(_), None) => std::cmp::Ordering::Less,     // Words with digits come first
-            (None, Some(_)) => std::cmp::Ordering::Greater,  // Words with digits come first
-            (None, None) => std::cmp::Ordering::Equal,       // If neither has digits, maintain original order
+    // Create a vector of (word, number) pairs to avoid repeated extraction
+    let mut word_pairs: Vec<(&str, Option<u32>)> = Vec::with_capacity(word_count);
+    
+    for word in phrase.split_whitespace() {
+        word_pairs.push((word, extract_number(word)));
+    }
+    
+    // Sort the pairs based on the numeric value
+    word_pairs.sort_by(|a, b| {
+        match (a.1, b.1) {
+            (Some(a_num), Some(b_num)) => a_num.cmp(&b_num),
+            (Some(_), None) => std::cmp::Ordering::Less,
+            (None, Some(_)) => std::cmp::Ordering::Greater,
+            (None, None) => std::cmp::Ordering::Equal,
         }
     });
     
-    // Remove digits from each word and join them
-    let result = words
-        .iter()
-        .map(|word| remove_digits(word))
-        .collect::<Vec<String>>()
-        .join(" ");
+    // Pre-calculate the length of the result string to avoid reallocations
+    let result_len = word_pairs.iter()
+        .map(|(word, _)| {
+            // Length of word without digits + 1 for space
+            word.chars().filter(|c| !c.is_digit(10)).count() + 1
+        })
+        .sum::<usize>()
+        .saturating_sub(1); // Subtract 1 because there's no space after the last word
+    
+    // Build the result string with pre-allocated capacity
+    let mut result = String::with_capacity(result_len);
+    
+    for (i, (word, _)) in word_pairs.iter().enumerate() {
+        // Add each character that is not a digit
+        for c in word.chars() {
+            if !c.is_digit(10) {
+                result.push(c);
+            }
+        }
+        
+        // Add space between words, but not after the last word
+        if i < word_pairs.len() - 1 {
+            result.push(' ');
+        }
+    }
     
     result
 }
 
 // Helper function to extract the first number from a string
 fn extract_number(s: &str) -> Option<u32> {
-    let digits: String = s.chars().filter(|c| c.is_digit(10)).collect();
-    if digits.is_empty() {
-        None
-    } else {
-        digits.parse::<u32>().ok()
+    let mut number = 0;
+    let mut has_digit = false;
+    
+    for c in s.chars() {
+        if c.is_digit(10) {
+            has_digit = true;
+            if let Some(digit) = c.to_digit(10) {
+                number = number * 10 + digit;
+            }
+        }
     }
-}
-
-// Helper function to remove all digits from a string
-fn remove_digits(s: &str) -> String {
-    s.chars().filter(|c| !c.is_digit(10)).collect()
+    
+    if has_digit {
+        Some(number)
+    } else {
+        None
+    }
 }
