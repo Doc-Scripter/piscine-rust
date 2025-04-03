@@ -4,10 +4,10 @@ pub fn nbr_function(c: i32) -> (i32, f64, f64) {
 
 pub fn str_function(a: String) -> (String, String) {
     let exponential: String = a
-        .chars()
-        .map(|c| (c as u32 as f64).exp().to_string())
+        .split_whitespace()
+        .map(|s| s.parse::<f64>().unwrap_or(0.0).exp().to_string())
         .collect::<Vec<String>>()
-        .join("");
+        .join(" ");
     (a, exponential)
 }
 
