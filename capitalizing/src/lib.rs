@@ -1,4 +1,7 @@
 pub fn capitalize_first(input: &str) -> String {
+    if input.is_empty(){
+        return input.to_string()
+    }
     let mut chars = input.chars();
     
     // Get the first character and convert to uppercase
@@ -33,7 +36,7 @@ pub fn title_case(input: &str) -> String {
         }
     }
     
-    result
+    result.replace("\t","")
 }
 
 pub fn change_case(input: &str) -> String {
