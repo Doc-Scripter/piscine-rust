@@ -18,16 +18,23 @@ pub fn capitalize_first(input: &str) -> String {
 
 pub fn title_case(input: &str) -> String {
     let mut result = String::new();
+    let mut words = input.split_whitespace().peekable();
     
-    // Iterate through each word
-    for (i, word) in input.split_whitespace().enumerate() {
-        if i > 0 {
-            // Add a space before each word except the first one
-            result.push(' ');
-        }
+    // Track the position in the original string
+    let mut pos = 0;
+    
+    while let Some(word) = words.next() {
+        // Find the position of this word in the original string
+        let word_pos = input[pos..].find(word).unwrap() + pos;
         
+        // Add any whitespace characters (including tabs) that come before this word
+        result.push_str(&input[pos..word_pos]);
+        
+        // Update position to after this word
+        pos = word_pos + word.len();
+        
+        // Capitalize the first character of the word
         if let Some(first_char) = word.chars().next() {
-            // Capitalize the first character
             result.push_str(&first_char.to_uppercase().to_string());
             
             // Add the rest of the word
@@ -36,7 +43,12 @@ pub fn title_case(input: &str) -> String {
         }
     }
     
-    result.replace("\t","")
+    // Add any remaining whitespace at the end
+    if pos < input.len() {
+        result.push_str(&input[pos..]);
+    }
+    
+    result
 }
 
 pub fn change_case(input: &str) -> String {
