@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := changes
+folder := circle
 
 function:
 	cargo new --lib $(folder)
