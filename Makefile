@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := strings
+folder := capitalizing
 
 function:
 	cargo new --lib $(folder)
