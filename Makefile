@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := circle
+folder := card_deck
 
 function:
 	cargo new --lib $(folder)
