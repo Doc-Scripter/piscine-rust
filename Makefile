@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := arrange_it
+folder := changes
 
 function:
 	cargo new --lib $(folder)
