@@ -7,6 +7,7 @@ pub fn is_permutation(s1: &str, s2: &str) -> bool {
         *s2_map.entry( i).or_insert(0) += 1;
     }
 
+    
     for i in s1.chars() {
         if !s2_map.contains_key(&i) {
             return false;
