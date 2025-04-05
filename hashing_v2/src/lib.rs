@@ -5,18 +5,25 @@ pub fn mean(list: &[i32]) -> f64 {
     (sum / list.len() as f64) as f64
 }
 
-pub fn median(list: &[i32]) -> i32 {
-    let mid;
-    // if list.len() %2==0{
-    //     mid=(list.len()/2)+1;
+pub fn median(list: &[i32]) -> f64 {
+    if list.is_empty() {
+        panic!("Cannot compute median of empty list");
+    }
 
-    // }else{
-        mid=list.len()/2;
-        
-    // }
-    let mut  new_list =list.to_vec();
+    let mut new_list = list.to_vec();
     new_list.sort();
-    new_list[mid]
+    
+    let len = new_list.len();
+    if len % 2 == 0 {
+        // Even length: average of the two middle elements
+        let mid_right = len / 2;
+        let mid_left = mid_right - 1;
+        (new_list[mid_left] as f64 + new_list[mid_right] as f64) / 2.0
+    } else {
+        // Odd length: middle element
+        let mid = len / 2;
+        new_list[mid] as f64
+    }
 }
 
 pub fn mode(list: &[i32]) -> i32 {
