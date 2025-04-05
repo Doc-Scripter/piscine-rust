@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := bigger
+folder := string_permutation
 
 function:
 	cargo new --lib $(folder)
