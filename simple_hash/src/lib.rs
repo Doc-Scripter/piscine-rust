@@ -1,10 +1,10 @@
 use std::collections::HashMap;
-pub fn word_frequency_counter(words: Vec<&str>) -> HashMap<&str, usize> {
+pub fn word_frequency_counter<'a>(words: &'a Vec<&'a str>) -> HashMap<&'a str, usize> {
     let mut hash: HashMap<&str, usize> = HashMap::new();
     for val in words {
-        if hash.contains_key(&val){
-            hash.insert(val, hash.get(&val).unwrap() + 1);
-        }else{
+        if hash.contains_key(val) {
+            hash.insert(val, hash.get(val).unwrap() + 1);
+        } else {
             hash.insert(val, 1);
         }
     }

@@ -4,7 +4,7 @@ const SENTENCE: &str = "this is a very basic sentence with only a few repetition
 
 fn main() {
     let words = SENTENCE.split_ascii_whitespace().collect::<Vec<_>>();
-    let frequency_count = word_frequency_counter(words);
+    let frequency_count = word_frequency_counter(&words);
 
     println!("{:?}", frequency_count);
     println!("{}", nb_distinct_words(&frequency_count));
