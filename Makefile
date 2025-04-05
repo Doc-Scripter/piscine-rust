@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := edit_distance
+folder := simple_hash
 
 function:
 	cargo new --lib $(folder)
