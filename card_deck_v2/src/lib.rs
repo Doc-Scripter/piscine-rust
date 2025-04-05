@@ -1,5 +1,6 @@
 use rand::prelude::*;
-use rand::thread_rng;
+use rand::rng;
+
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Suit {
     Heart,
@@ -27,8 +28,8 @@ pub enum Rank {
 
 impl Suit {
     pub fn random() -> Suit {
-        let suits = [Suit::Heart, Suit::Diamond, Suit::Spade, Suit::Club];
-        let mut rng = thread_rng();
+        let suits: [Suit; 4] = [Suit::Heart, Suit::Diamond, Suit::Spade, Suit::Club];
+        let mut rng: ThreadRng = rng();
         *suits.choose(&mut rng).unwrap()
     }
 
@@ -49,7 +50,7 @@ impl Rank {
             Rank::Six, Rank::Seven, Rank::Eight, Rank::Nine, Rank::Ten,
             Rank::Jack, Rank::Queen, Rank::King,
         ];
-        let mut rng = thread_rng();
+        let mut rng = rng();
         *ranks.choose(&mut rng).unwrap()
     }
 

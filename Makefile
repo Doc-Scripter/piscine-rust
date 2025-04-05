@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := capitalizing
+folder := edit_distance
 
 function:
 	cargo new --lib $(folder)
