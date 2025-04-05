@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-pub fn word_frequency_counter<'a>(words: &'a Vec<&'a str>) -> HashMap<&'a str, usize> {
+pub fn word_frequency_counter<'a>(words: &'a [&'a str]) -> HashMap<&'a str, usize> {
     let mut hash: HashMap<&str, usize> = HashMap::new();
     for val in words {
         if hash.contains_key(val) {
