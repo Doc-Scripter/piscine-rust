@@ -7,13 +7,13 @@ pub fn mean(list: &[i32]) -> f64 {
 
 pub fn median(list: &[i32]) -> i32 {
     let mid;
-    if list.len() %2==0{
-        mid=(list.len()/2)+1;
+    // if list.len() %2==0{
+    //     mid=(list.len()/2)+1;
 
-    }else{
+    // }else{
         mid=list.len()/2;
         
-    }
+    // }
     let mut  new_list =list.to_vec();
     new_list.sort();
     new_list[mid]
