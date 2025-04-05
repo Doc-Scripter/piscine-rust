@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := simple_hash
+folder := bigger
 
 function:
 	cargo new --lib $(folder)
