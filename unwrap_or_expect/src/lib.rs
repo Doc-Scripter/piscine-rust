@@ -20,7 +20,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
         }
         Err(url) => {
             match security_level {
-                Security::Unknown => panic!(),
+                Security::Unknown => panic!("called Result::unwrap() on an Err value: \"{}\"", url),
                 Security::Message => panic!("ERROR: program stops"),
                 Security::Warning => format!("WARNING: check the server"),
                 Security::NotFound => format!("Not found: {}",url.to_owned()),
