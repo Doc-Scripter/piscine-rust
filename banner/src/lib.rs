@@ -62,7 +62,7 @@ pub fn rem(a: &str, b: &str) -> Result<String, ParseFloatError> {
     let b = b_parsed?;
     
     if b == 0.0 {
-        return "invalid".parse::<f64>().map(|_| unreachable!());
+       return Ok("inf".parse::<f64>().map(|_| unreachable!())?);
     }
     
     Ok((a % b).to_string())
