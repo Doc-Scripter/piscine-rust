@@ -1,17 +1,31 @@
-struct Message{
-  content String,
-  user String,
-}
 
-impl for Message{
-  fn new(){
-    
+pub struct Message{
+    pub content : String,
+    pub user: String,
   }
-  fn send_ms(){
-    
+  
+  impl Message{
+    #[allow(dead_code)]
+    pub fn new(content:String,user:String,)->Message{
+      Message{content:content,user:user}
+    }
+    pub fn send_ms<'a>(self)->Option<String>{
+            if self.content==""||self.content.contains("stupid"){
+              None
+              }else{
+            
+            Some(self.content)
+        }
+    }
   }
-}
+  
+  pub fn check_ms(message: &str) -> Result<&str, &str> {
+    let msg = Message::new(message.to_string(), "new".to_string());
+      if msg.send_ms().is_some(){
+        Ok(message)
 
-pub fn check_ms(message: &str) -> Result<&str, &str> {
-    todo!()
-}
+      }else{
+        Err("ERROR: illegal")
+      }
+  }
+  
