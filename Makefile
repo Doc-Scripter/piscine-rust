@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := question_mark
+folder := banner
 
 function:
 	cargo new --lib $(folder)

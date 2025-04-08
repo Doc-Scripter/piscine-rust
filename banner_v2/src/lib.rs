@@ -1,0 +1,69 @@
+use std::collections::HashMap;
+use std::num::ParseFloatError;
+
+pub struct Flag {
+    pub short_hand: String,
+    pub long_hand: String,
+    pub desc:String
+}
+
+impl<'a> Flag {
+    pub fn opt_flag(name: &'a str, d: &'a str) -> Self {
+        Flag{
+            short_hand: name.to_string(),
+            desc: d.to_string(),
+            long_hand: name.to_string(),
+        }
+    }
+}
+
+pub type Callback = fn(&str, &str) -> Result<String, ParseFloatError>;
+
+pub struct FlagsHandler {
+    pub flags: HashMap<(String,String), Callback>,
+}
+
+impl FlagsHandler {
+    pub fn add_flag(&mut self, flag: Flag, func: Callback) {
+        self.flags.insert((flag.short_hand.clone(), flag.long_hand),func);
+    }
+/*
+exec_func, which executes the function using the flag provided and returns the result. The callback should be executed with the first two arguments of the supplied argv argument. Return either the successful result from the callback or the error stringified.
+*/
+#[allow(unused_variables)]
+    pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
+        if let Some(result) = self.flags.values().map(|each| each(argv[0], argv[1])).find(|res| res.is_ok()) {
+            Ok(result.unwrap())
+        } else {
+            Err("invalid float literal".to_string())
+        }
+    }
+}
+
+pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
+     let a_parsed = a.parse::<f64>();
+     let b_parsed = b.parse::<f64>();
+     
+     let a = a_parsed?;
+     let b = b_parsed?;
+     
+     if b == 0.0 {
+         return "invalid".parse::<f64>().map(|_| unreachable!());
+     }
+     
+     Ok((a / b).to_string())
+}
+
+pub fn rem(a: &str, b: &str) -> Result<String, ParseFloatError> {
+    let a_parsed = a.parse::<f64>();
+    let b_parsed = b.parse::<f64>();
+    
+    let a = a_parsed?;
+    let b = b_parsed?;
+    
+    if b == 0.0 {
+        return "invalid".parse::<f64>().map(|_| unreachable!());
+    }
+    
+    Ok((a % b).to_string())
+}
