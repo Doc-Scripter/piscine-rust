@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := unwrap_or_expect
+folder := panic
 
 function:
 	cargo new --lib $(folder)
