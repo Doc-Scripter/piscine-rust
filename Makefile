@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := panic
+folder := handling
 
 function:
 	cargo new --lib $(folder)
