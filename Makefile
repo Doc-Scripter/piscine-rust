@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := collect
+folder := unwrap_or_expect
 
 function:
 	cargo new --lib $(folder)
