@@ -11,7 +11,7 @@ fn main() {
     Not found: server2.com
         */
     // Panics with no custom message
-    // fetch_data(Err("ERROR CRITICAL"), Security::Unknown);
+    fetch_data(Err("ERROR CRITICAL"), Security::Unknown);
 
     // Panics with the message "ERROR: program stops"
     // fetch_data(Err("server.com"), Security::Message);
