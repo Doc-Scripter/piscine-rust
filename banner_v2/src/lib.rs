@@ -37,12 +37,12 @@ exec_func, which executes the function using the flag provided and returns the r
             if k.0==input||k.1==input{
                 match v(argv[0],argv[1]){
                     Ok(v)=>return Ok(v),
-                    Err(_)=>return Err("invalid float literal".to_string()),
+                    Err(_)=>return Err("inf".to_string()),
                 };
 
             }
         } 
-        return  Err("invalid float literal".to_string())
+        Ok("invalid float literal".to_owned())
     }
 }
 
