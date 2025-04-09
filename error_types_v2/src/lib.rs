@@ -17,48 +17,44 @@ impl Form {
     }
     #[allow(unused)]
     pub fn validate(&self) -> Result<(), FormError> {
-        // Check for empty username
+        // let mut erro_map = HashMap::new();
         if self.name.is_empty() {
             return Err(FormError::new(
-                "name",
+                "name".to_string(),
                 self.name.clone(),
-                "Username is empty",
+                "Username is empty".to_string(),
             ));
         }
-        
-        // Check password length
         if self.password.len() < 8 {
             return Err(FormError::new(
-                "password",
+                "name".to_string(),
                 self.password.clone(),
-                "Password should be at least 8 characters long",
+                "Password should be at least 8 characters long".to_string(),
             ));
         }
-        
-        // Check password complexity
-        let mut has_digit = false;
-        let mut has_punctuation = false;
-        let mut has_alphabet = false;
-        
+        let mut digits = false;
+        let mut alpha_numeric = false;
+        let mut alphabet: bool = false;
+        let mut checks = [&digits, &alpha_numeric, &alphabet];
         for val in self.password.chars() {
             if val.is_ascii_alphabetic() {
-                has_alphabet = true;
+                checks[2] = &true;
             }
             if val.is_ascii_digit() {
-                has_digit = true;
+                checks[0] = &true;
             }
             if val.is_ascii_punctuation() {
-                has_punctuation = true;
+                checks[1] = &true;
             }
         }
 
-        if has_digit && has_punctuation && has_alphabet {
+        if checks.iter().all(|e| **e == true) {
             return Ok(());
         } else {
             return Err(FormError::new(
-                "password",
+                "password".to_string(),
                 self.password.to_owned(),
-                "Password should be a combination of ASCII numbers, letters and symbols",
+                "Password should be a combination of ASCII numbers, letters and symbols".to_string(),
             ));
         }
     }
@@ -73,12 +69,14 @@ pub struct FormError {
 }
 #[allow(unused)]
 impl FormError {
-    pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
+    pub fn new(field_name: String, field_value: String, err: String) -> Self {
+        // let mut form_values: HashMap<String, String> = HashMap::new();
+        // form_values.insert(field_name.to_owned(), field_value);
         let dt = Utc.with_ymd_and_hms(2022, 10, 17, 12, 9, 25).unwrap();
         FormError {
-            form_values: (field_name.to_string(), field_value),
+            form_values: (field_name , field_value),
             date: dt.format("%Y-%m-%d %H:%M:%S").to_string(),
-            err: err.to_string(),
+            err: err.to_owned(),
         }
     }
 }
