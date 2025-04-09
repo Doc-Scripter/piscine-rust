@@ -3,7 +3,7 @@ mod err;
 pub use err::{ParseErr, ReadErr};
 
 pub use std::{error::Error, fs, path::Path};
-pub use json::{JsonValue,object};
+pub use json::JsonValue;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Task {
@@ -20,19 +20,19 @@ pub struct TodoList {
 
 impl TodoList {
     pub fn get_todo(path: &str) -> Result<TodoList, Box<dyn Error>> {
-        // Read file content
+        // Read the file
         let content = fs::read_to_string(Path::new(path))
             .map_err(|e| Box::new(ReadErr { child_err: Box::new(e) }) as Box<dyn Error>)?;
 
-        // Parse JSON
+        // Parse the JSON
         let parsed = json::parse(&content)
-            .map_err(|e| Box::new(ParseErr::Malformed(Box::new(e))) as Box<dyn Error>)?;
+            .map_err(|e| Box::new(ParseErr::Malformed(Box::new(e))))?;
 
         // Extract title
         let title = parsed["title"].as_str().ok_or_else(|| {
             Box::new(ParseErr::Malformed(Box::new(
-                std::fmt::Error, // Dummy internal error to satisfy trait
-            ))) as Box<dyn Error>
+                std::fmt::Error, // Dummy error for structure mismatch
+            )))
         })?.to_string();
 
         // Extract tasks
