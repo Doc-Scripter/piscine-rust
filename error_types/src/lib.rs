@@ -1,7 +1,7 @@
 // this will be the structure that wil handle the errors
 #[allow(unused_imports)]
-// use chrono::TimeZone;
-// use chrono::offset::Utc;
+pub use chrono::TimeZone;
+pub use chrono::offset::Utc;
 
 // use chrono::TimeZone;
 
