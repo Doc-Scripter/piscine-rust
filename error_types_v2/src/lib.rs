@@ -18,7 +18,6 @@ impl Form {
             password: pass,
         }
     }
-    #[allow(unused)]
     pub fn validate(&self) -> Result<(), FormError> {
         // let mut erro_map = HashMap::new();
         if self.name.is_empty() {
@@ -35,9 +34,9 @@ impl Form {
                 "Password should be at least 8 characters long".to_string(),
             ));
         }
-        let mut digits = false;
-        let mut alpha_numeric = false;
-        let mut alphabet: bool = false;
+        let digits = false;
+        let alpha_numeric = false;
+        let alphabet: bool = false;
         let mut checks = [&digits, &alpha_numeric, &alphabet];
         for val in self.password.chars() {
             if val.is_ascii_alphabetic() {
