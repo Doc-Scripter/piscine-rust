@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := error_types
+folder := boxing_todo
 
 function:
 	cargo new --lib $(folder)
