@@ -82,3 +82,24 @@ impl FormError {
 }
 
 //2022-10-17 12:09:25
+/*
+Error: Already failed code at commit bf7264c
+
+Previous output:
+   Compiling error_types v0.1.0 (/jail/solutions/error_types)
+error[E0433]: failed to resolve: use of undeclared crate or module `chrono`
+ --> /jail/solutions/error_types/src/lib.rs:3:5
+  |
+3 | use chrono::prelude::*;
+  |     ^^^^^^ use of undeclared crate or module `chrono`
+
+error[E0425]: cannot find value `Utc` in this scope
+  --> /jail/solutions/error_types/src/lib.rs:75:18
+   |
+75 |         let dt = Utc.with_ymd_and_hms(2022, 10, 17, 12, 9, 25).unwrap();
+   |                  ^^^ not found in this scope
+
+Some errors have detailed explanations: E0425, E0433.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `error_types` (lib) due to 2 previous errors
+*/
