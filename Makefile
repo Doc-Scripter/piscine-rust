@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := banner
+folder := cipher
 
 function:
 	cargo new --lib $(folder)

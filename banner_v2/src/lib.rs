@@ -8,13 +8,11 @@ pub struct Flag {
 }
 
 impl<'a> Flag {
+    
     pub fn opt_flag(name: &'a str, d: &'a str) -> Self {
         Flag {
             short_hand: format!("-{}", name.to_string().chars().next().unwrap().to_string()),
-            long_hand: format!(
-                "-{:?}",
-                name.to_string().chars().next().unwrap().to_string()
-            ),
+            long_hand: format!("--{}", name.to_string()),
             desc: d.to_string(),
         }
     }
@@ -40,15 +38,13 @@ impl FlagsHandler {
 
         match value {
             Some(v) => {
-            
                 match v(argv[0], argv[1]) {
                     Ok(v) => return Ok(v),
-                    Err(_) => return Err("invalid float literal".to_owned()),
+                    Err(err) => return Err("invalid float literal".to_owned()),
                 };
             }
-            None =>  return Err("invalid float literal".to_owned())
+            None => return Err("invalid float literal".to_owned()),
         }
-        
 
         // Ok("invalid float literal".to_owned())
     }
