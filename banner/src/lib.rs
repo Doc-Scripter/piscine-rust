@@ -35,7 +35,10 @@ exec_func, which executes the function using the flag provided and returns the r
         for (k,v) in self.flags.iter() {
             // println!("{:?}",k);
             if k.0==input||k.1==input{
-                return Ok(v(argv[0],argv[1]).unwrap())
+                match v(argv[0],argv[1]){
+                    Ok(v)=>return Ok(v),
+                    Err(_)=>return Err("invalid float literal".to_string()),
+                };
 
             }
         } 
