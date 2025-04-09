@@ -29,7 +29,7 @@ impl Form {
         if self.password.len() < 8 {
             return Err(FormError::new(
                 "password".to_string(),
-                self.password.clone(),
+                self.password.to_string(),
                 "Password should be at least 8 characters long".to_string(),
             ));
         }
@@ -68,7 +68,6 @@ pub struct FormError {
     pub date: String,
     pub err: String,
 }
-#[allow(unused)]
 impl FormError {
     pub fn new(field_name: String, field_value: String, err: String) -> Self {
         // let mut form_values: HashMap<String, String> = HashMap::new();
@@ -77,7 +76,7 @@ impl FormError {
         FormError {
             form_values: (field_name , field_value),
             date: dt.format("%Y-%m-%d %H:%M:%S").to_string(),
-            err: err.to_owned(),
+            err,
         }
     }
 }
