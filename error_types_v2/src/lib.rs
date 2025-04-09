@@ -1,7 +1,9 @@
 // this will be the structure that wil handle the errors
 
+// use chrono::TimeZone;
+// use chrono::offset::Utc;
+
 use chrono::TimeZone;
-use chrono::offset::Utc;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Form {
@@ -22,14 +24,14 @@ impl Form {
         if self.name.is_empty() {
             return Err(FormError::new(
                 "name".to_string(),
-                self.name.clone(),
+                "".to_string(),
                 "Username is empty".to_string(),
             ));
         }
         if self.password.len() < 8 {
             return Err(FormError::new(
                 "password".to_string(),
-                self.password.to_string(),
+                self.password.clone(),
                 "Password should be at least 8 characters long".to_string(),
             ));
         }
@@ -72,11 +74,11 @@ impl FormError {
     pub fn new(field_name: String, field_value: String, err: String) -> Self {
         // let mut form_values: HashMap<String, String> = HashMap::new();
         // form_values.insert(field_name.to_owned(), field_value);
-        let dt = Utc.with_ymd_and_hms(2022, 10, 17, 12, 9, 25).unwrap();
+        let dt = chrono::offset::Utc.with_ymd_and_hms(2022, 10, 17, 12, 9, 25).unwrap();
         FormError {
             form_values: (field_name , field_value),
             date: dt.format("%Y-%m-%d %H:%M:%S").to_string(),
-            err,
+            err: err,
         }
     }
 }
