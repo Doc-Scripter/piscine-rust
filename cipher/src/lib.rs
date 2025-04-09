@@ -1,7 +1,7 @@
 
 #[derive(Debug, PartialEq)]
 pub struct CipherError {
-    expected: String
+   pub expected: String
 }
 
 #[allow(unused)]
