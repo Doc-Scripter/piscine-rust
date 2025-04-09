@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := cipher
+folder := error_types
 
 function:
 	cargo new --lib $(folder)
