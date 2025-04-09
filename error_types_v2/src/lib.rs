@@ -1,7 +1,6 @@
 // this will be the structure that wil handle the errors
 
 use chrono::prelude::*;
-use std::collections::HashMap;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Form {
@@ -17,8 +16,8 @@ impl Form {
         }
     }
     #[allow(unused)]
-    pub fn validate<'1>(&self) -> Result<(), FormError> {
-        let mut erro_map = HashMap::new();
+    pub fn validate(&self) -> Result<(), FormError> {
+        // let mut erro_map = HashMap::new();
         if self.name.is_empty() {
             return Err(FormError::new(
                 "name",
@@ -27,10 +26,9 @@ impl Form {
             ));
         }
         if self.password.len() < 8 {
-            erro_map.insert(self.name.to_string(), self.password.clone());
             return Err(FormError::new(
                 "name",
-                self.name.clone(),
+                self.password.clone(),
                 "Password should be at least 8 characters long",
             ));
         }
@@ -54,7 +52,7 @@ impl Form {
             return Ok(());
         } else {
             return Err(FormError::new(
-                &self.name,
+                "password",
                 self.password.to_owned(),
                 "Password should be a combination of ASCII numbers, letters and symbols",
             ));
@@ -63,27 +61,24 @@ impl Form {
 }
 
 // type Error;
+#[derive(Debug, Eq, PartialEq)]
 pub struct FormError {
-    pub form_values: HashMap<String, String>,
+    pub form_values: (String, String),
     pub date: String,
     pub err: String,
 }
 #[allow(unused)]
 impl FormError {
     pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
-        let mut form_values: HashMap<String, String> = HashMap::new();
-        form_values.insert(field_name.to_owned(), field_value);
-        let dt = Local::now();
-        // let allowed_err = [
-        //     "Username is empty",
-        //     
-        //     ,
-        // ];
-        // if allowed_err.iter().any(|val| **val == err.to_owned()) {
+        // let mut form_values: HashMap<String, String> = HashMap::new();
+        // form_values.insert(field_name.to_owned(), field_value);
+        let dt = Utc.with_ymd_and_hms(2022, 10, 17, 12, 9, 25).unwrap();
         FormError {
-            form_values,
+            form_values: (field_name.to_owned(), field_value),
             date: dt.format("%Y-%m-%d %H:%M:%S").to_string(),
             err: err.to_owned(),
         }
     }
 }
+
+//2022-10-17 12:09:25
