@@ -1,9 +1,9 @@
 mod err;
 
-use err::{ParseErr, ReadErr};
+pub use err::{ParseErr, ReadErr};
 
-use std::{error::Error, fs, path::Path};
-use json::JsonValue;
+pub use std::{error::Error, fs, path::Path};
+pub use json::JsonValue;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Task {
