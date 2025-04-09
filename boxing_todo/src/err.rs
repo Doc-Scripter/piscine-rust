@@ -1,4 +1,4 @@
-pub use std::{error::Error, fmt::{self, Display}};
+pub use std::{io::{self,Write},error::Error, fmt::{self, Display}};
 
 #[derive(Debug)]
 pub enum ParseErr {
