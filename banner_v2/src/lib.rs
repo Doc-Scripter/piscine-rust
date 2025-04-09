@@ -7,12 +7,12 @@ pub struct Flag {
     pub desc:String
 }
 
-impl<'a> Flag {
+impl<'a> Flag  {
     pub fn opt_flag(name: &'a str, d: &'a str) -> Self {
         Flag{
-            short_hand: name.to_string(),
+            short_hand: format!("-{}",name.to_string().chars().next().unwrap().to_string()),
+            long_hand: format!("-{:?}",name.to_string().chars().next().unwrap().to_string()),
             desc: d.to_string(),
-            long_hand: name.to_string(),
         }
     }
 }
@@ -32,11 +32,14 @@ exec_func, which executes the function using the flag provided and returns the r
 */
 #[allow(unused_variables)]
     pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
-        if let Some(result) = self.flags.values().map(|each| each(argv[0], argv[1])).find(|res| res.is_ok()) {
-            Ok(result.unwrap())
-        } else {
-            Err("invalid float literal".to_string())
-        }
+        for (k,v) in self.flags.iter() {
+            // println!("{:?}",k);
+            if k.0==input||k.1==input{
+                return Ok(v(argv[0],argv[1]).unwrap())
+
+            }
+        } 
+        return  Err("invalid float literal".to_string())
     }
 }
 
