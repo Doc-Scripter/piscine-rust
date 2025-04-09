@@ -3,7 +3,7 @@
 // use chrono::TimeZone;
 // use chrono::offset::Utc;
 
-use chrono::TimeZone;
+// use chrono::TimeZone;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Form {
@@ -74,7 +74,7 @@ impl FormError {
     pub fn new(field_name: String, field_value: String, err: String) -> Self {
         // let mut form_values: HashMap<String, String> = HashMap::new();
         // form_values.insert(field_name.to_owned(), field_value);
-        let dt = chrono::offset::Utc.with_ymd_and_hms(2022, 10, 17, 12, 9, 25).unwrap();
+        let dt = chrono::TimeZone::with_ymd_and_hms(&chrono::offset::Utc, 2022, 10, 17, 12, 9, 25).unwrap();
         FormError {
             form_values: (field_name , field_value),
             date: dt.format("%Y-%m-%d %H:%M:%S").to_string(),
