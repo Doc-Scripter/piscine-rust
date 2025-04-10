@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := middle_day
+folder := does_it_fit
 
 function:
 	cargo new --lib $(folder)
@@ -19,3 +19,6 @@ push:
 
 pull:
 	watch -n 0.01 git pull
+clean:
+	cd $(folder) && cargo clean && cargo build 
+	
