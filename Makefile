@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := boxing_todo
+folder := middle_day
 
 function:
 	cargo new --lib $(folder)
