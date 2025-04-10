@@ -1,5 +1,3 @@
-use case::CaseExt;
-
 fn edit_distance(s1: &str, s2: &str) -> usize {
     let s1: Vec<char> = s1.chars().collect();
     let s2: Vec<char> = s2.chars().collect();
@@ -38,23 +36,22 @@ pub fn expected_variable(compare: &str, expected: &str) -> Option<String> {
         return None;
     }
 
-    // More strict validation for snake case
+    // Validate the input format (either snake_case or camelCase/PascalCase)
     let is_snake = compare.contains('_') && 
                    !compare.contains(' ') && 
-                   !compare.chars().any(|c| c.is_uppercase()) &&
                    !compare.contains("__");  // No double underscores
 
-    // More strict validation for camel case
+    // Modified to accept both camelCase and PascalCase
     let is_camel = !compare.contains('_') && 
                    !compare.contains(' ') &&
-                   compare.chars().next().map_or(false, |c| c.is_lowercase()) &&
-                   compare == compare.to_camel();
+                   compare.chars().all(|c| !c.is_whitespace());
     
+    // If neither snake_case nor camelCase/PascalCase, return None
     if !is_camel && !is_snake {
         return None;
     }
 
-    // Rest of the function remains the same
+    // Calculate similarity
     let distance = edit_distance(&compare.to_lowercase(), &expected.to_lowercase());
     let max_len = expected.len().max(compare.len());
     let similarity = ((max_len - distance) as f64 / max_len as f64) * 100.0;
