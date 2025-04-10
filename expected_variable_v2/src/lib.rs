@@ -34,11 +34,11 @@ fn edit_distance(s1: &str, s2: &str) -> usize {
 
 pub fn expected_variable(compare: &str, expected: &str) -> Option<String> {
     // Check if string is in valid case format
-    let is_snake = compare == compare.to_snake();
-    // Also accept Pascal case by checking if string equals its camel case after capitalizing first letter
+    let is_snake = compare == compare.to_snake() && compare.contains('_');
     let is_camel = compare.is_camel_lowercase() || 
-                  compare == compare.to_camel() ||
-                  compare == format!("{}{}", &compare[..1].to_uppercase(), &compare[1..]);
+                  (compare != compare.to_snake() && // Ensure it's not snake case
+                   (compare == compare.to_camel() ||
+                    compare == format!("{}{}", &compare[..1].to_uppercase(), &compare[1..])));
     
     if !is_camel && !is_snake {
         return None;
