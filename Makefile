@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := does_it_fit
+folder := macro_calculator
 
 function:
 	cargo new --lib $(folder)
