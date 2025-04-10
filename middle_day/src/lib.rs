@@ -1,4 +1,4 @@
-use chrono::{Datelike, NaiveDate, Weekday};
+pub use chrono::{Datelike, NaiveDate, Weekday};
 
 /// Returns the weekday of the middle day of the given year.
 ///
