@@ -1,9 +1,9 @@
 use chrono::Weekday;
 
-pub const MON: Weekday = Weekday::Mon;
-pub const TUE: Weekday = Weekday::Tue;
-pub const WED: Weekday = Weekday::Wed;
-pub const THU: Weekday = Weekday::Thu;
-pub const FRI: Weekday = Weekday::Fri;
-pub const SAT: Weekday = Weekday::Sat;
-pub const SUN: Weekday = Weekday::Sun;
+pub const Mon: Weekday = Weekday::Mon;
+pub const Tue: Weekday = Weekday::Tue;
+pub const Wed: Weekday = Weekday::Wed;
+pub const Thu: Weekday = Weekday::Thu;
+pub const Fri: Weekday = Weekday::Fri;
+pub const Sat: Weekday = Weekday::Sat;
+pub const Sun: Weekday = Weekday::Sun;
