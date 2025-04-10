@@ -33,25 +33,32 @@ fn edit_distance(s1: &str, s2: &str) -> usize {
 }
 
 pub fn expected_variable(compare: &str, expected: &str) -> Option<String> {
-    // Check if string is in valid case format
-    let is_snake = compare == compare.to_snake() && compare.contains('_');
-    let is_camel = compare.is_camel_lowercase() || 
-                  (compare != compare.to_snake() && // Ensure it's not snake case
-                   (compare == compare.to_camel() ||
-                    compare == format!("{}{}", &compare[..1].to_uppercase(), &compare[1..])));
+    // Check if string is empty
+    if compare.is_empty() || expected.is_empty() {
+        return None;
+    }
+
+    // More strict validation for snake case
+    let is_snake = compare.contains('_') && 
+                   !compare.contains(' ') && 
+                   !compare.chars().any(|c| c.is_uppercase()) &&
+                   !compare.contains("__");  // No double underscores
+
+    // More strict validation for camel case
+    let is_camel = !compare.contains('_') && 
+                   !compare.contains(' ') &&
+                   compare.chars().next().map_or(false, |c| c.is_lowercase()) &&
+                   compare == compare.to_camel();
     
     if !is_camel && !is_snake {
         return None;
     }
 
-    // Calculate edit distance
+    // Rest of the function remains the same
     let distance = edit_distance(&compare.to_lowercase(), &expected.to_lowercase());
-    
-    // Calculate similarity percentage
     let max_len = expected.len().max(compare.len());
     let similarity = ((max_len - distance) as f64 / max_len as f64) * 100.0;
     
-    // Return percentage if similarity is greater than 50%
     if similarity > 50.0 {
         Some(format!("{:.0}%", similarity))
     } else {
