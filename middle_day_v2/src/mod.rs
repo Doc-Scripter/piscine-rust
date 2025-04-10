@@ -1,3 +1,5 @@
+pub wd;
+
 pub const Mon: Weekday = Weekday::Mon;
 pub const Tue: Weekday = Weekday::Tue;
 pub const Wed: Weekday = Weekday::Wed;
