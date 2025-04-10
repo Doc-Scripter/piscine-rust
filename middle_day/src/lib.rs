@@ -1,6 +1,7 @@
 pub use chrono;
 pub use chrono::{Datelike, NaiveDate, Weekday};
 
+pub mod wd;
 
 /// Returns the weekday of the middle day of the given year.
 ///
