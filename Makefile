@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := expected_variable
+folder := mobs
 
 function:
 	cargo new --lib $(folder)
@@ -21,4 +21,7 @@ pull:
 	watch -n 0.01 git pull
 clean:
 	cd $(folder) && cargo clean && cargo build 
+
+push:
+	git push origin && git push github
 	
