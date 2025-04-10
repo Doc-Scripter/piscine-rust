@@ -5,7 +5,8 @@ pub fn biggest_store(mall: Mall) -> store::Store {
     mall.floors
         .iter()
         .flat_map(|floor| floor.stores.iter())
-        .max_by_key(|store| store.square_meters)
+        .max_by_key(|store| store
+            .square_meters)
         .unwrap()
         .clone()
 }
@@ -72,9 +73,9 @@ pub fn cut_or_raise(mall: &mut Mall) {
             for employee in store.employees.iter_mut() {
                 let hours = employee.working_hours.1 - employee.working_hours.0;
                 if hours > 10 {
-                    employee.salary *= 1.1; // 10% raise
+                    employee.salary = (employee.salary * 1.1 * 10000.0).round() / 10000.0; // 10% raise
                 } else {
-                    employee.salary *= 0.9; // 10% cut
+                    employee.salary = (employee.salary * 0.9 * 10000.0).round() / 10000.0; // 10% cut
                 }
             }
         }
