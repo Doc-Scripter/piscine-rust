@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := shopping_mall
+folder := expected_variable
 
 function:
 	cargo new --lib $(folder)
