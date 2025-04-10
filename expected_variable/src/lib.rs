@@ -36,15 +36,19 @@ pub fn expected_variable(compare: &str, expected: &str) -> Option<String> {
         return None;
     }
 
-    // Validate the input format (either snake_case or camelCase/PascalCase)
+    // Stricter validation for snake_case
     let is_snake = compare.contains('_') && 
                    !compare.contains(' ') && 
-                   !compare.contains("__");  // No double underscores
+                   !compare.contains("__") && // No double underscores
+                   compare.chars().all(|c| c.is_alphanumeric() || c == '_') &&
+                   !compare.starts_with('_') &&
+                   !compare.ends_with('_');
 
-    // Modified to accept both camelCase and PascalCase
+    // Stricter validation for camelCase/PascalCase
     let is_camel = !compare.contains('_') && 
                    !compare.contains(' ') &&
-                   compare.chars().all(|c| !c.is_whitespace());
+                   compare.chars().all(|c| c.is_alphanumeric()) &&
+                   !compare.chars().next().unwrap().is_numeric();
     
     // If neither snake_case nor camelCase/PascalCase, return None
     if !is_camel && !is_snake {
