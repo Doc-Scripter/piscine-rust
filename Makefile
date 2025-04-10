@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := macro_calculator
+folder := shopping_mall
 
 function:
 	cargo new --lib $(folder)
