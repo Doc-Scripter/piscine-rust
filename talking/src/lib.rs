@@ -1,6 +1,6 @@
 pub fn talking(text: &str) -> &str {
-    // Check for empty string first
-    if text.is_empty() {
+    // Check for empty string first - this must be the very first check
+    if text.trim().is_empty() {
         return "Just say something!";
     }
 
