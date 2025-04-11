@@ -31,23 +31,22 @@ pub fn rotate(input: &str, key: i8) -> String {
             }
         }
     } else {
-        let new_key = key *-1;
-        
+        let new_key = key * -1;
+
         for val in input.chars() {
             if val.is_alphabetic() {
                 if val.is_ascii_uppercase() {
-                  if 'A' as u64 > val as u64 - new_key as u64  {
-                        let diff = new_key as u64 + ('A' as u64 + val as u64);
-                        res.push(('Z' as u64 - diff+1) as u8 as char);
+                    if 'A' as u64 > val as u64 - new_key as u64 {
+                        let diff = 'A' as u64 - (val as u64 - new_key as u64);
+                        res.push(('Z' as u64 - diff + 1) as u8 as char);
                     } else {
                         res.push((val as u64 - new_key as u64) as u8 as char);
                     }
                 } else {
-                   
                     if 'a' as u64 > val as u64 - new_key as u64 {
                         // println!("{'a'}");
-                        let diff =   'a' as u64 - (val as u64-new_key as u64);
-                        res.push(('z' as u64 - diff +1) as u8 as char);
+                        let diff = 'a' as u64 - (val as u64 - new_key as u64);
+                        res.push(('z' as u64 - diff + 1) as u8 as char);
                     } else {
                         res.push((val as u64 - new_key as u64) as u8 as char);
                     }
