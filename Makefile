@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := logic_number
+folder := rot
 
 function:
 	cargo new --lib $(folder)
