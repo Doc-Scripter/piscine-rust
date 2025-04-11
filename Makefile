@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := scores
+folder := searching
 
 function:
 	cargo new --lib $(folder)
