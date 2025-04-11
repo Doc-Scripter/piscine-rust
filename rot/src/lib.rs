@@ -4,10 +4,7 @@ pub fn rotate(input: &str, key: i8) -> String {
         for val in input.chars() {
             if val.is_alphabetic() {
                 if val.is_ascii_uppercase() {
-                    if key as u64 % 26 == 0 {
-                        res.push(val);
-                        continue;
-                    }
+                  
                     if val as u64 + key as u64 > 'Z' as u64 {
                         let diff = key as u64 - ('Z' as u64 - val as u64);
                         res.push(('A' as u64 + diff) as u8 as char);
@@ -15,10 +12,7 @@ pub fn rotate(input: &str, key: i8) -> String {
                         res.push((val as u64 + key as u64) as u8 as char);
                     }
                 } else {
-                    if key as u64 % 26 == 0 {
-                        res.push(val);
-                        continue;
-                    }
+                   
                     if val as u64 + key as u64 > 'z' as u64 {
                         let diff = key as u64 - ('z' as u64 - val as u64);
                         res.push(('a' as u64 + diff - 1) as u8 as char);
