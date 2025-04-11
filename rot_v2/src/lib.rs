@@ -38,7 +38,7 @@ pub fn rotate(input: &str, key: i8) -> String {
                 if val.is_ascii_uppercase() {
                   if 'A' as u64 > val as u64 - new_key as u64  {
                         let diff = new_key as u64 + ('A' as u64 + val as u64);
-                        res.push(('Z' as u64 - diff) as u8 as char);
+                        res.push(('Z' as u64 - diff+1) as u8 as char);
                     } else {
                         res.push((val as u64 - new_key as u64) as u8 as char);
                     }
