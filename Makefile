@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := ordinal
+folder := pangram
 
 function:
 	cargo new --lib $(folder)
