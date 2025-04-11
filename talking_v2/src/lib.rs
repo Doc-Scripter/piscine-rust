@@ -1,5 +1,5 @@
 pub fn talking(text: &str) -> &str {
-    if text.is_empty(){
+    if text==""{
         return  "Just say something!"
     }
     let mut yell = true;
@@ -26,5 +26,5 @@ pub fn talking(text: &str) -> &str {
     }
 
 
-    return "interesting";
+    return "Interesting";
 }
