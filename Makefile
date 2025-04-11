@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := searching
+folder := ordinal
 
 function:
 	cargo new --lib $(folder)
