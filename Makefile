@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := stars
+folder := scores
 
 function:
 	cargo new --lib $(folder)
