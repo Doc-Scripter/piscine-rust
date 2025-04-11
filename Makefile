@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := talking
+folder := logic_number
 
 function:
 	cargo new --lib $(folder)
