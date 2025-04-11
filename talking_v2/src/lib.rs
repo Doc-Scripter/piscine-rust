@@ -1,5 +1,5 @@
 pub fn talking(text: &str) -> &str {
-    if text == "" || text.is_empty() {
+    if text.is_empty() {
         return "Just say something!";
     }
 
@@ -9,7 +9,7 @@ pub fn talking(text: &str) -> &str {
         }
             return "Sure.";
     } else {
-        if !text.chars().any(|x| x.is_ascii_lowercase()) {
+        if text.chars().all(|x|x.is_alphabetic())&&!text.chars().any(|x| x.is_ascii_lowercase()) {
             return "There is no need to yell, calm down!";
         }
         return "Interesting";
