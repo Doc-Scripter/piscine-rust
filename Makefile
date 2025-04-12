@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := rgb_match
+folder := pig_latin
 
 function:
 	cargo new --lib $(folder)
