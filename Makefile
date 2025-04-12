@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := diamond_creation
+folder := spelling
 
 function:
 	cargo new --lib $(folder)
