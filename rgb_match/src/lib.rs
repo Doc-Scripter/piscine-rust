@@ -1,4 +1,3 @@
-
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Color {
     pub r: u8,
@@ -9,25 +8,20 @@ pub struct Color {
 
 impl Color {
     pub fn swap(mut self, first: u8, second: u8) -> Color {
-        // Determine which components to swap based on their values
-        if self.r == first && self.g == second {
-            // Swap r and g
-            std::mem::swap(&mut self.r, &mut self.g);
-        } else if self.r == first && self.b == second {
-            // Swap r and b
-            std::mem::swap(&mut self.r, &mut self.b);
-        } else if self.r == first && self.a == second {
-            // Swap r and a
-            std::mem::swap(&mut self.r, &mut self.a);
-        } else if self.g == first && self.b == second {
-            // Swap g and b
-            std::mem::swap(&mut self.g, &mut self.b);
-        } else if self.g == first && self.a == second {
-            // Swap g and a
-            std::mem::swap(&mut self.g, &mut self.a);
-        } else if self.b == first && self.a == second {
-            // Swap b and a
-            std::mem::swap(&mut self.b, &mut self.a);
+        match (first, second) {
+            (r, g) if r == self.r && g == self.g => std::mem::swap(&mut self.r, &mut self.g),
+            (r, b) if r == self.r && b == self.b => std::mem::swap(&mut self.r, &mut self.b),
+            (r, a) if r == self.r && a == self.a => std::mem::swap(&mut self.r, &mut self.a),
+            (g, r) if g == self.g && r == self.r => std::mem::swap(&mut self.g, &mut self.r),
+            (g, b) if g == self.g && b == self.b => std::mem::swap(&mut self.g, &mut self.b),
+            (g, a) if g == self.g && a == self.a => std::mem::swap(&mut self.g, &mut self.a),
+            (b, r) if b == self.b && r == self.r => std::mem::swap(&mut self.b, &mut self.r),
+            (b, g) if b == self.b && g == self.g => std::mem::swap(&mut self.b, &mut self.g),
+            (b, a) if b == self.b && a == self.a => std::mem::swap(&mut self.b, &mut self.a),
+            (a, r) if a == self.a && r == self.r => std::mem::swap(&mut self.a, &mut self.r),
+            (a, g) if a == self.a && g == self.g => std::mem::swap(&mut self.a, &mut self.g),
+            (a, b) if a == self.a && b == self.b => std::mem::swap(&mut self.a, &mut self.b),
+            _ => {}
         }
         
         self
