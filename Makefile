@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := scytale_cipher
+folder := diamond_creation
 
 function:
 	cargo new --lib $(folder)
