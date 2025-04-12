@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := pig_latin
+folder := scytale_cipher
 
 function:
 	cargo new --lib $(folder)
