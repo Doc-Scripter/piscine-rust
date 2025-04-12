@@ -24,5 +24,5 @@ pub fn scytale_cipher(message: String, i: u32) -> String {
         }
     }
 
-    result
+    result.trim_end().to_string()
 }
