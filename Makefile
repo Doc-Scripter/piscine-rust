@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := rot
+folder := rgb_match
 
 function:
 	cargo new --lib $(folder)
