@@ -1,11 +1,11 @@
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct WorkEnvironment {
     pub grade: Link,
 }
 
 pub type Link = Option<Box<Worker>>;
 
-#[derive(Debug,Clone)]
+#[derive(Debug)]
 pub struct Worker {
     pub role: String,
     pub name: String,
@@ -16,41 +16,24 @@ impl WorkEnvironment {
     pub fn new() -> WorkEnvironment {
         WorkEnvironment { grade: None }
     }
-  pub fn add_worker(&mut self, role: String, name: String) {
-    let new_worker = Box::new(Worker {
-        role,
-        name,
-        next: None,
-    });
 
-    let mut current = &mut self.grade;
-    
-    // Traverse the list until we find the end
-    while let Some(worker) = current {
-        current = &mut worker.next;
+    pub fn add_worker(&mut self, role: String, name: String) {
+        let new_worker = Box::new(Worker {
+            role,
+            name,
+            next: self.grade.take(),
+        });
+        self.grade = Some(new_worker);
     }
-    
-    // Insert the new worker at the end
-    *current = Some(new_worker);
-}
 
     pub fn remove_worker(&mut self) -> Option<String> {
-        match self.grade.clone() {
-            None => None,
-            Some(mut head) => {
-                let name = head.name.clone();
-                self.grade = head.next.take();
-                Some(name)
-            }
-        }
+        self.grade.take().map(|worker| {
+            self.grade = worker.next;
+            worker.name
+        })
     }
+
     pub fn last_worker(&self) -> Option<(String, String)> {
-        match  self.grade.clone() {
-                None=>None,
-                Some(last)=>{
-                    Some((last.name,last.role))
-                },
-        }
+        self.grade.as_ref().map(|worker| (worker.name.clone(), worker.role.clone()))
     }
 }
-                
