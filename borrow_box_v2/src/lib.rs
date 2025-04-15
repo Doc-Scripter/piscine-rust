@@ -26,7 +26,7 @@ impl GameSession {
     }
 
     pub fn update_score(&mut self, user_name: String) {
-        if self.p1.1 != self.nb_games && self.p2.1 != self.nb_games {
+        if self.p1.1 != self.nb_games || self.p2.1 != self.nb_games {
             if user_name == self.p1.0 {
                 self.p1.1 += 1;
             }
@@ -36,8 +36,9 @@ impl GameSession {
         }
     }
     pub fn delete(self) -> String {
-        let mut moved_box = self;
-        moved_box.id = 0;
-        "game deleted: id -> 0".to_string()
+        let id = self.id;
+        let _moved_box = self;
+        format!("game deleted: id -> {id}").to_string()
+        // moved_box.id = 0;
     }
 }

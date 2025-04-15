@@ -22,6 +22,6 @@ pull:
 clean:
 	cd $(folder) && cargo fmt &&cargo clean && cargo build 
 
-push:
+push2:
 	git push origin && git push github
 	
