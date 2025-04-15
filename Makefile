@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := spelling
+folder := box_it
 
 function:
 	cargo new --lib $(folder)
