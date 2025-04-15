@@ -29,7 +29,7 @@ impl GameSession {
         
 
         if self.p1.1+self.p2.1 >= self.nb_games {
-            self.clone().delete();
+            return;
         }
             if user_name == self.p1.0 {
                 self.p1.1 += 1;
