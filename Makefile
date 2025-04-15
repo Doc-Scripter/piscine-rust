@@ -1,11 +1,10 @@
 # Define shared variables at the top level
-folder := box_recursion
+folder := how_many_references
 
 function:
-	cargo new --lib $(folder)
-	cargo new $(folder)_v2
-	cd $(folder)_v2/src && touch lib.rs
-	cd $(folder)_v2 && watch -n 0.01 cargo run
+	cargo new $(folder)
+	cd $(folder)/src && touch lib.rs
+	cd $(folder) && watch -n 0.01 cargo run
 
 program:
 	cargo new $(folder)_v2
