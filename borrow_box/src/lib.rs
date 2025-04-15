@@ -27,7 +27,7 @@ impl GameSession {
 
     pub fn update_score(&mut self, user_name: String) {
         // Only update if we haven't reached the maximum number of games yet
-        if self.p1.1 + self.p2.1 >= self.nb_games {
+        if self.p1.1 + self.p2.1 >= self.nb_games||self.p1.1>=(self.nb_games/2)+1 ||self.p2.1>=(self.nb_games/2)+1 {
             return;
         }
         
