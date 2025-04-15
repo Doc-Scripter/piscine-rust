@@ -12,7 +12,7 @@ impl GameSession {
             id,
             p1: (p1_name, 0),
             p2: (p2_name, 0),
-            nb_games: nb_games,
+            nb_games,
         })
     }
     pub fn read_winner(&self) -> (String, u16) {
@@ -26,19 +26,21 @@ impl GameSession {
     }
 
     pub fn update_score(&mut self, user_name: String) {
-        if self.p1.1+self.p2.1 < self.nb_games {
+        
+
+        if self.p1.1+self.p2.1 >= self.nb_games {
+            self.clone().delete();
+        }
             if user_name == self.p1.0 {
                 self.p1.1 += 1;
             }
             if user_name == self.p2.0 {
                 self.p2.1 += 1;
             }
-        }
     }
     pub fn delete(self) -> String {
         let id = self.id;
         let _moved_box = self;
         format!("game deleted: id -> {id}").to_string()
-        // moved_box.id = 0;
     }
 }
