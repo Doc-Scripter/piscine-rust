@@ -20,7 +20,7 @@ push:
 pull:
 	watch -n 0.01 git pull
 clean:
-	cd $(folder) && cargo clean && cargo build 
+	cd $(folder) && cargo fmt &&cargo clean && cargo build 
 
 push:
 	git push origin && git push github
