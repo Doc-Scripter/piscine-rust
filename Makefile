@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := borrow_box
+folder := box_recursion
 
 function:
 	cargo new --lib $(folder)
