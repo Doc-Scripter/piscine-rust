@@ -27,69 +27,37 @@ pub    fn new(num:usize) -> Worker {
 impl Logger for Worker {
    fn info(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Info".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("Info: {}",msg.to_owned()));
     }
     fn error(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Error".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("Error: {}",msg.to_owned()));
 
     }
     fn warning(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Warning".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("Warning: {}",msg.to_owned()));
 
     }
 }
 
 /*
-   Compiling ref_cell v0.1.0 (/jail/solutions/ref_cell)
-   Compiling ref_cell_test v0.1.0 (/jail/tests/ref_cell_test)
-error[E0308]: mismatched types
-  --> src/main.rs:82:20
-   |
-82 |         track.peek(&l.value); // 40%
-   |               ---- ^^^^^^^^ expected `&Rc<i32>`, found `&Rc<usize>`
-   |               |
-   |               arguments to this method are incorrect
-   |
-   = note: expected reference `&ref_cell::Rc<i32>`
-              found reference `&ref_cell::Rc<usize>`
-note: method defined here
-  --> /jail/solutions/ref_cell/src/messenger.rs:37:12
-   |
-37 |     pub fn peek(&self,num: &Rc<i32>) {
-   |            ^^^^
 
-error[E0308]: mismatched types
-  --> src/main.rs:85:25
-   |
-85 |         track.set_value(&l.value); // 80%
-   |               --------- ^^^^^^^^ expected `&Rc<i32>`, found `&Rc<usize>`
-   |               |
-   |               arguments to this method are incorrect
-   |
-   = note: expected reference `&ref_cell::Rc<i32>`
-              found reference `&ref_cell::Rc<usize>`
-note: method defined here
-  --> /jail/solutions/ref_cell/src/messenger.rs:26:12
-   |
-26 |    pub  fn set_value(&self,num: &Rc<i32>) {
-   |            ^^^^^^^^^
+running 3 tests
+test tests::test_module ... ok
+test tests::test_module_usage_hasmap ... FAILED
+test tests::test_module_usage_vector ... ok
 
-error[E0308]: mismatched types
-  --> src/main.rs:87:25
-   |
-87 |         track.set_value(&l.value); // 100%
-   |               --------- ^^^^^^^^ expected `&Rc<i32>`, found `&Rc<usize>`
-   |               |
-   |               arguments to this method are incorrect
-   |
-   = note: expected reference `&ref_cell::Rc<i32>`
-              found reference `&ref_cell::Rc<usize>`
-note: method defined here
-  --> /jail/solutions/ref_cell/src/messenger.rs:26:12
-   |
-26 |    pub  fn set_value(&self,num: &Rc<i32>) {
-   |            ^^^^^^^^^
+failures:
+
+---- tests::test_module_usage_hasmap stdout ----
+
+thread 'tests::test_module_usage_hasmap' panicked at src/main.rs:109:9:
+assertion `left == right` failed
+  left: "Warning: you have used up over 75% of your quota! Proceeds with precaution"
+ right: "you have used up over 75% of your quota! Proceeds with precaution"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+            ^^^^^^^^^
 
 */
