@@ -1,43 +1,43 @@
-use std::rc::Rc;
+use std:: rc::Rc;
 
-use crate::Worker;
 
 pub struct Tracker<'a> {
-    pub logger: Rc<dyn Logger+ 'a>,
+    pub logger: &'a dyn Logger,
     pub value: Rc<i32>,
     pub max: i32,
 }
 
 pub trait Logger  {
-    fn info(&mut self, msg: &str);
-    fn error(&mut self, msg: &str);
-    fn warning(&mut self, msg: &str);
+    fn info(&self, msg: &str);
+    fn error(&self, msg: &str);
+    fn warning(&self, msg: &str);
 }
 //&ref_cell::Worker
 impl <'a>Tracker<'a> {
 //   pub  fn new(logger: &'a mut dyn Logger,num:i32) -> Tracker<'a> {
-  pub  fn new(logger: Rc<dyn Logger + 'a>,num:i32) -> Tracker<'a> {
+  pub  fn new(logger: &'a dyn Logger ,num:i32) -> Tracker<'a> {
 
        Tracker{
             logger,
-            value: Rc::new(0),
+            value: Rc::new(num),
             max:num,
         }
     }
-   pub  fn set_value(&mut self) {
-        let count = Rc::strong_count(&self.value);
-        let percent =(count /self.max as usize)*100;
+   pub  fn set_value(&self,num: &Rc<i32>) {
+    
+        let count = Rc::strong_count(num);
+        let percent = (count * 100) / self.max as usize;
+        if percent >= 70 &&percent<100{
+            self.logger.warning( format!("Warning: you have used up over {}% of your quota! Proceeds with precaution", percent).as_str());
+        }
         if percent >= 100 {
             self.logger.error( "Error: you are over your quota!");
         }
-        if percent >= 70 {
-            self.logger.warning( format!("Warning: you have used up over {percent}% of your quota! Proceeds with precaution").as_str());
-        }
     }
-    pub fn peek(&mut self) {
-        let count = Rc::strong_count(&self.value);
-        let percent =(count /self.max as usize)*100;
-        self.logger.info(format!("Info: you are using up to {percent}% of your quota").as_str());
+    pub fn peek(&self,num: &Rc<i32>) {
 
+        let count = Rc::strong_count(&num);
+        let percent = (count * 100) / self.max as usize;
+        self.logger.info(format!("Info: you are using up to {}% of your quota", percent).as_str());
     }
 }
