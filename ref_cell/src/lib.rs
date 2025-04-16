@@ -31,12 +31,12 @@ impl Logger for Worker {
     }
     fn error(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Error".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("Error: {}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
 
     }
     fn warning(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Warning".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("Warning: {}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
 
     }
 }
