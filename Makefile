@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := how_many_references
+folder := ref_cell
 
 function:
 	cargo new $(folder)
@@ -7,11 +7,11 @@ function:
 	cd $(folder) && watch -n 0.01 cargo run
 
 program:
-	cargo new $(folder)_v2
-	cd $(folder)_v2 && watch -n 0.01 cargo run
+	cargo new $(folder)
+	cd $(folder) && watch -n 0.01 cargo run
 
 infinite:
-	cd $(folder)_v2 && watch -n 0.01 cargo run
+	cd $(folder) && watch -n 0.01 cargo run
 
 push:
 	watch -n 0.01 git push
