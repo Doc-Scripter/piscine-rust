@@ -36,7 +36,7 @@ impl Logger for Worker {
     }
     fn warning(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Warning".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("Error: {}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("Warning: {}",msg.to_owned()));
 
     }
 }
