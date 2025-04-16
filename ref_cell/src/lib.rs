@@ -27,7 +27,7 @@ pub    fn new(num:usize) -> Worker {
 impl Logger for Worker {
    fn info(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Info".to_owned(),msg.to_owned());
-        self.all_messages.borrow_mut().push(format!("Info: {}",msg.to_owned()));
+        self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
     }
     fn error(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Error".to_owned(),msg.to_owned());
