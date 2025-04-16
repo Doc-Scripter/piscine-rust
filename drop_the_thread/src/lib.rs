@@ -18,9 +18,8 @@ impl Workers {
     }
 
     pub fn new_worker(&self, c: String) -> (usize, Thread) {
-        let id = self.drops.get();
+        let id = self.states.borrow().len(); // Get ID from states length
         self.states.borrow_mut().push(false);
-        self.drops.set(id + 1);
         (id, Thread::new_thread(id, c, self))
     }
 
@@ -39,7 +38,9 @@ impl Workers {
                 panic!("{id} is already dropped");
             }
             *state = true;
+            self.drops.set(self.drops.get() + 1); // Increment drops counter here
         }
+    
     }
 }
 
