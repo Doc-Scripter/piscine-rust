@@ -23,7 +23,7 @@ impl <'a>Tracker<'a> {
             max:num,
         }
     }
-   pub  fn set_value(&self,num: &Rc<i32>) {
+   pub  fn set_value(&self,num: &Rc<usize>) {
     
         let count = Rc::strong_count(num);
         let percent = (count * 100) / self.max as usize;
@@ -34,7 +34,7 @@ impl <'a>Tracker<'a> {
             self.logger.error( "Error: you are over your quota!");
         }
     }
-    pub fn peek(&self,num: &Rc<i32>) {
+    pub fn peek(&self,num: &Rc<usize>) {
 
         let count = Rc::strong_count(&num);
         let percent = (count * 100) / self.max as usize;
