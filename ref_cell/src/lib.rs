@@ -26,16 +26,16 @@ pub    fn new(num:usize) -> Worker {
 
 impl Logger for Worker {
    fn info(&self, msg: &str) {
-        self.mapped_messages.borrow_mut().insert("Info".to_owned(),msg.to_owned());
+        self.mapped_messages.borrow_mut().insert("Info".to_owned(),msg.to_owned().drain(6..msg.len()).collect());
         self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
     }
     fn error(&self, msg: &str) {
-        self.mapped_messages.borrow_mut().insert("Error".to_owned(),msg.to_owned());
+        self.mapped_messages.borrow_mut().insert("Error".to_owned(),msg.to_owned().drain(7..msg.len()).collect());
         self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
 
     }
     fn warning(&self, msg: &str) {
-        self.mapped_messages.borrow_mut().insert("Warning".to_owned(),msg.to_owned());
+        self.mapped_messages.borrow_mut().insert("Warning".to_owned(),msg.to_owned().drain(9..msg.len()).collect());
         self.all_messages.borrow_mut().push(format!("{}",msg.to_owned()));
 
     }
