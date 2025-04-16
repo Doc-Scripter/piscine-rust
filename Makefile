@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := ref_cell
+folder := drop_the_thread
 
 function:
 	cargo new $(folder)
