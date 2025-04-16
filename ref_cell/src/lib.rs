@@ -1,6 +1,6 @@
 pub use std::collections::HashMap;
 pub use std::cell::RefCell;
-use std::rc::Rc;
+pub use std::rc::Rc;
 
 pub use messenger::*;
 
