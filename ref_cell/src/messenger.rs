@@ -28,16 +28,16 @@ impl <'a>Tracker<'a> {
         let count = Rc::strong_count(num);
         let percent = (count * 100) / self.max as usize;
         if percent >= 70 &&percent<100{
-            self.logger.warning( format!("Warning: you have used up over {}% of your quota! Proceeds with precaution", percent).as_str());
+            self.logger.warning( format!("you have used up over {}% of your quota! Proceeds with precaution", percent).as_str());
         }
         if percent >= 100 {
-            self.logger.error( "Error: you are over your quota!");
+            self.logger.error( "you are over your quota!");
         }
     }
     pub fn peek(&self,num: &Rc<usize>) {
 
         let count = Rc::strong_count(&num);
         let percent = (count * 100) / self.max as usize;
-        self.logger.info(format!("Info: you are using up to {}% of your quota", percent).as_str());
+        self.logger.info(format!("you are using up to {}% of your quota", percent).as_str());
     }
 }
