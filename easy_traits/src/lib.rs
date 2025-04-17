@@ -24,7 +24,7 @@ impl AppendStr for StringValue {
     }
 
     fn remove_punctuation_marks(&mut self) -> Self{
-        self.value.retain( |x|x != '.'&&x !='!');
+        self.value.retain( |x|x != '.'&&x !='!'&&x !='?'&&x !=',');
         Self { value: self.value.clone() }
 
     }
