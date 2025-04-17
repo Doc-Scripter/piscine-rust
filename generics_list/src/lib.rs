@@ -9,8 +9,8 @@ pub struct Node<T> {
     pub value: T,
     pub next: Option<Box<Node<T>>>,
 }
-
-impl<T> List<T> {
+// #[derive(Debug)]
+impl<T: std::fmt::Debug> List<T> {
     pub fn new() -> List<T> {
         List { head: None }
     }
@@ -29,10 +29,15 @@ impl<T> List<T> {
     }
 
     pub fn pop(&mut self) {
+        // println!("{:#?}",self.head.as_ref());
         if self.head.is_none() {
             return;
         }
         self.head.take().map(|x|{
+            
+            if x.next.is_none(){
+                return;
+            }
             self.head=Some(*x.next.unwrap());
             
         });

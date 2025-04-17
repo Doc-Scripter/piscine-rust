@@ -12,6 +12,8 @@ fn main() {
     println!("The size of the list is {}", new_list_str.len());
 
     new_list_str.pop();
+    // new_list_str.pop();
+    // new_list_str.pop();
     println!("The size of the list is {}", new_list_str.len());
 }
 /*
