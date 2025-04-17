@@ -25,7 +25,7 @@ pub	fn eat<T:Food>(&mut self, food: T) {
 impl std::fmt::Display for Player{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         writeln!(f,"{}",self.name)?;
-        writeln!(f,"Strength :{}, Score: {}, Money: {}",self.strength,self.score,self.money)?;
+        writeln!(f,"Strength: {}, Score: {}, Money: {}",self.strength,self.score,self.money)?;
         write!(f,"Weapons: {:?}",self.weapons)?;
         Ok(())
     }
