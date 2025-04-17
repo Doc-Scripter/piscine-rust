@@ -7,7 +7,7 @@ fn main() {
 
     println!("Before append: {}", str_aux.value);
 
-    str_aux.append_str(String::from(" there..!"));
+    str_aux.append_str(String::from(" there..!?"));
     println!("After append: {}", str_aux.value);
 
     str_aux.remove_punctuation_marks();

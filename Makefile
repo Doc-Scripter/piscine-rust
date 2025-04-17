@@ -1,6 +1,5 @@
 # Define shared variables at the top level
-folder := easy_traits
-
+folder := traits
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
