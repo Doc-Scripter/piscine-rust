@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := generics_list
+folder := easy_traits
 
 function:
 	cargo new $(folder)
