@@ -29,6 +29,9 @@ impl<T> List<T> {
     }
 
     pub fn pop(&mut self) {
+        if self.head.is_none() {
+            return;
+        }
         self.head.take().map(|x|{
             self.head=Some(*x.next.unwrap());
             
