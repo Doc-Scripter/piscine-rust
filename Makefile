@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := drop_the_thread
+folder := generics
 
 function:
 	cargo new $(folder)
