@@ -43,33 +43,38 @@ impl FromStr for BloodType {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        // Check for empty string
+        // Instead of returning a Result with an Error, we'll panic for invalid inputs
+        // This is what the test expects based on the "should panic" annotation
+        
+        // First, validate the input string
         if s.is_empty() {
             panic!("Empty blood type string");
         }
-
-        // Parse the antigen part
-        let antigen = if s.starts_with("AB") {
-            Antigen::AB
-        } else if s.starts_with('A') {
-            Antigen::A
-        } else if s.starts_with('B') {
-            Antigen::B
-        } else if s.starts_with('O') {
-            Antigen::O
-        } else {
-            panic!("Invalid blood type antigen: {}", s);
+        
+        // Check if the string has a valid format (must end with + or -)
+        if !s.ends_with('+') && !s.ends_with('-') {
+            panic!("Invalid blood type format: {}", s);
+        }
+        
+        // Extract the antigen part (everything except the last character)
+        let antigen_str = &s[0..s.len()-1];
+        
+        // Validate and convert the antigen part
+        let antigen = match antigen_str {
+            "A" => Antigen::A,
+            "B" => Antigen::B,
+            "AB" => Antigen::AB,
+            "O" => Antigen::O,
+            _ => panic!("Unknown blood type antigen: {}", antigen_str),
         };
-
-        // Parse the Rh factor
-        let rh_factor = if s.ends_with('+') {
-            RhFactor::Positive
-        } else if s.ends_with('-') {
-            RhFactor::Negative
-        } else {
-            panic!("Invalid Rh factor in blood type: {}", s);
+        
+        // Extract and validate the Rh factor
+        let rh_factor = match s.chars().last().unwrap() {
+            '+' => RhFactor::Positive,
+            '-' => RhFactor::Negative,
+            _ => panic!("Invalid Rh factor"), // This should never happen due to the earlier check
         };
-
+        
         Ok(BloodType { antigen, rh_factor })
     }
 }
