@@ -45,7 +45,8 @@ impl FromStr for BloodType {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         // Parse the blood type string (e.g., "A+", "B-", "AB+", "O-")
         if s.is_empty() {
-            return Err(Error);
+            // Changed to panic instead of returning an error
+            panic!("Empty blood type string");
         }
 
         // Determine the antigen
@@ -58,7 +59,8 @@ impl FromStr for BloodType {
         } else if s.starts_with('O') {
             Antigen::O
         } else {
-            return Err(Error);
+            // Changed to panic instead of returning an error
+            panic!("Invalid blood type antigen: {}", s);
         };
 
         // Determine the Rh factor
@@ -67,7 +69,8 @@ impl FromStr for BloodType {
         } else if s.ends_with('-') {
             RhFactor::Negative
         } else {
-            return Err(Error);
+            // Changed to panic instead of returning an error
+            panic!("Invalid blood type Rh factor: {}", s);
         };
 
         Ok(BloodType { antigen, rh_factor })
