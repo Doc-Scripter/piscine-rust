@@ -63,4 +63,19 @@ impl<T: Scalar> Vector<T> {
         
         Some(result)
     }
+
+    /// Calculates the vector product between two vectors
+    /// Returns None if the vectors have different lengths
+    pub fn vector_product(&self, other: &Self) -> Option<Vector<T>> {
+        if self.0.len() != other.0.len() {
+            return None;
+        }
+        
+        let mut result = Vec::with_capacity(self.0.len());
+        for i in 0..self.0.len() {
+            result.push(self.0[i] * other.0[i]);
+        }
+        
+        Some(Vector(result))
+    }
 }
