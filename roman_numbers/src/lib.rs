@@ -46,8 +46,8 @@ impl From<u32> for RomanNumber {
                     val -= 1000;
                 }
                 v if v >= 900 => {
-                    vec.push(RomanDigit::M);
                     vec.push(RomanDigit::C);
+                    vec.push(RomanDigit::M);
                     val -= 900;
                 }
                 v if v >= 500 => {
