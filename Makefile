@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := vector_operations
+folder := roman_numbers
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
