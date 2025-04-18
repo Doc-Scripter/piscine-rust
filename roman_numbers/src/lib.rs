@@ -22,9 +22,9 @@ impl From<u32> for RomanDigit {
             5 => RomanDigit::V,
             10 => RomanDigit::X,
             50 => RomanDigit::L,
-            100 => RomanDigit::M,
+            100 => RomanDigit::C,
             500 => RomanDigit::D,
-            1000 => RomanDigit::C,
+            1000 => RomanDigit::M,
             0 => RomanDigit::Nulla,
             _=> panic!("Invalid value for RomanDigit"),
         }
@@ -65,7 +65,7 @@ impl From<u32> for RomanNumber {
                 }
                 v if v >= 90 => {
                     vec.push(RomanDigit::X);
-                    vec.push(RomanDigit::M);
+                    vec.push(RomanDigit::C);
                     val -= 90;
                 }
                 v if v >= 50 => {
