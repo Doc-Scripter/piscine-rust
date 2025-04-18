@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := lalgebra_scalar
+folder := lalgebra_vector
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
