@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := blood_types
+folder := vector_operations
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
