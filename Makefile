@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := traits
+folder := blood_types
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
