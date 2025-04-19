@@ -5,71 +5,71 @@ pub use json::*;
 pub use std::fs;
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct Author{
-    name:String,
-    email:String,
-    date:String
+    pub name:String,
+    pub email:String,
+    pub date:String
 }
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct Tree{
-    sha:String,
-    url:String
+    pub sha:String,
+    pub url:String
 }
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct  Verification{
-    verified:bool,
-    reason:String,
-    signature:Option<String>,
-    payload:Option<String>,
+    pub verified:bool,
+    pub reason:String,
+    pub signature:Option<String>,
+    pub payload:Option<String>,
 }
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct Commit{
-    author:Author,
-    committer:Author,
-    message:String,
-    tree:Tree,
-    url:String,
-    comment_count:i64,
-    verification:Verification
+   pub  author:Author,
+    pub committer:Author,
+    pub message:String,
+    pub tree:Tree,
+    pub url:String,
+    pub comment_count:i64,
+    pub verification:Verification
 
 }
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct  AuthorMain{
-    login:String,
-    id:i64,
-    node_id:String,
-    avatar_url:String,
-    gravatar_id:String,
-    url:String,
-    html_url:String,
-    followers_url:String,
-    following_url:String,
-    gists_url:String,
-    starred_url:String,
-    subscriptions_url:String,
-    organizations_url:String,
-    repos_url:String,
-    events_url:String,
-    received_events_url:String,
-    r#type:String,
-    site_admin:bool
+pub login:String,
+pub id:i64,
+pub node_id:String,
+pub avatar_url:String,
+pub gravatar_id:String,
+pub url:String,
+pub html_url:String,
+pub followers_url:String,
+pub following_url:String,
+pub gists_url:String,
+pub starred_url:String,
+pub subscriptions_url:String,
+pub organizations_url:String,
+pub repos_url:String,
+pub events_url:String,
+pub received_events_url:String,
+pub r#type:String,
+pub site_admin:bool
 }
 
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct Parents{
-    sha:String,
-    url:String,
-    html_url:String,
+pub sha:String,
+pub url:String,
+pub html_url:String,
 }
 #[derive(Serialize,Deserialize,Debug,Clone)]
 pub struct CommitData{
-    sha:String,
-    node_id:String,
-    commit:Commit,
-    url:String,
-    html_url:String,
-    author:AuthorMain,
-    committer:AuthorMain,
-    parents:Vec<Parents>
+pub sha:String,
+pub node_id:String,
+pub commit:Commit,
+pub url:String,
+pub html_url:String,
+pub author:AuthorMain,
+pub committer:AuthorMain,
+pub parents:Vec<Parents>
 }
 
 pub fn commits_per_week(data: &json::JsonValue) -> HashMap<String, u32> {
