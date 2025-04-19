@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := lalgebra_vector
+folder := commits_stats
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
