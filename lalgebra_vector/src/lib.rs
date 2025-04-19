@@ -2,7 +2,7 @@
 use std::ops::*;
 use std::fmt::Debug;
 
-pub trait Scalar: Add<Output = Self> + std::ops::Mul<Output = Self> + Copy + Debug {
+pub trait Scalar: Add<Output = Self> + Mul<Output = Self> + Copy + Debug {
     fn zero() -> Self;
 }
 
@@ -51,10 +51,10 @@ impl<T: Scalar> Vector<T> {
     }
 
     /// Calculates the dot product between two vectors
-    /// Returns None if the vectors have different lengths
-    pub fn dot(&self, other: &Self) -> Option<T> {
+    /// Panics if the vectors have different lengths
+    pub fn dot(&self, other: &Self) -> T {
         if self.0.len() != other.0.len() {
-            return None;
+            panic!("Cannot calculate dot product of vectors with different lengths");
         }
         
         let mut result = T::zero();
@@ -62,21 +62,7 @@ impl<T: Scalar> Vector<T> {
             result = result + (self.0[i] * other.0[i]);
         }
         
-        Some(result)
+        result
     }
 
-    /// Calculates the vector product between two vectors
-    /// Panics if the vectors have different lengths
-    pub fn vector_product(&self, other: &Self) -> Vector<T> {
-        if self.0.len() != other.0.len() {
-            panic!("Cannot calculate vector product of vectors with different lengths");
-        }
-        
-        let mut result = Vec::with_capacity(self.0.len());
-        for i in 0..self.0.len() {
-            result.push(self.0[i] * other.0[i]);
-        }
-        
-        Vector(result)
-    }
 }

@@ -2,15 +2,7 @@ use std::ops::{Add, Div, Mul, Sub};
 
 /// Trait for scalar values in linear algebra operations.
 /// A scalar must support basic arithmetic operations and have identity elements.
-pub trait Scalar:
-    Sized
-    + Add<Output = Self>
-    + Sub<Output = Self>
-    + Mul<Output = Self>
-    + Div<Output = Self>
-    + PartialEq
-    + Copy
-    + Clone
+pub trait Scalar:Sized+ Add<Output = Self>+ Sub<Output = Self>+ Mul<Output = Self>+ Div<Output = Self>+ PartialEq+ Copy+ Clone
 {
     /// Returns the additive identity (zero)
     fn zero() -> Self;
