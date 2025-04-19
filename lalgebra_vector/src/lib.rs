@@ -1,4 +1,3 @@
-// instead of Option<Vector<T>> and handle different length vectors with panic like the add method does">
 use std::ops::*;
 use std::fmt::Debug;
 
@@ -51,10 +50,10 @@ impl<T: Scalar> Vector<T> {
     }
 
     /// Calculates the dot product between two vectors
-    /// Panics if the vectors have different lengths
-    pub fn dot(&self, other: &Self) -> T {
+    /// Returns None if the vectors have different lengths
+    pub fn dot(&self, other: &Self) -> Option<T> {
         if self.0.len() != other.0.len() {
-            panic!("Cannot calculate dot product of vectors with different lengths");
+            return None;
         }
         
         let mut result = T::zero();
@@ -62,7 +61,6 @@ impl<T: Scalar> Vector<T> {
             result = result + (self.0[i] * other.0[i]);
         }
         
-        result
+        Some(result)
     }
-
 }
