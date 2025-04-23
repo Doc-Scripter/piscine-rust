@@ -29,7 +29,6 @@ pub use std::ops::Add;
 pub use std::fmt::Debug;
 pub use std::clone::Clone;
 pub use std::cmp::{Eq, PartialEq};
-
 pub struct Vector<T: Scalar + Debug + Clone + Eq + PartialEq>(pub Vec<T>);
 
 impl<T: Scalar + Debug + Clone + Eq + PartialEq + Add<Output = T>> Add for Vector<T> {

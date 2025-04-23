@@ -1,10 +1,10 @@
 #[derive(Debug,Clone,PartialEq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 
-pub mod scalar;
+pub use lalgebra_vector::scalar::Scalar;
 pub use std::fmt::Debug;
 
-pub use scalar::*;
+// pub use scalar::*;
 
 impl <T: Scalar+Debug+Clone+PartialEq> Matrix<T> {
 	pub fn new() -> Matrix<T> {
