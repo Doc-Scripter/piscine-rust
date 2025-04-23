@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := commits_stats
+folder := matrix
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
