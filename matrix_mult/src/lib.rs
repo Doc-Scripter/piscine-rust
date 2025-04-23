@@ -36,6 +36,9 @@ impl <T:Clone>Matrix<T> {
 impl<T:Mul<Output = T>+Scalar+AddAssign> Mul for Matrix<T> {
     type Output = Option<Matrix<T>>;
     fn mul(self, rhs: Self) -> Self::Output {
+        if self.0[0].len() != rhs.0.len() {
+            return None;
+        }
         let mut result = Vec::new();
         for i in 0..self.0.len() {
             let mut row = Vec::new();
@@ -51,4 +54,5 @@ impl<T:Mul<Output = T>+Scalar+AddAssign> Mul for Matrix<T> {
         Some(Matrix(result))
 
     }
+
 }
