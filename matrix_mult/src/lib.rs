@@ -2,7 +2,7 @@ pub use std::ops::AddAssign;
 pub use std::ops::Mul;
 pub use lalgebra_scalar::*;
 
-#[derive(Clone,Debug)]
+#[derive(Clone,Debug,PartialEq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 
 impl <T:Clone>Matrix<T> {
@@ -34,7 +34,7 @@ impl <T:Clone>Matrix<T> {
 }
 
 impl<T:Mul<Output = T>+Scalar+AddAssign> Mul for Matrix<T> {
-    type Output = Matrix<T>;
+    type Output = Option<Matrix<T>>;
     fn mul(self, rhs: Self) -> Self::Output {
         let mut result = Vec::new();
         for i in 0..self.0.len() {
@@ -48,7 +48,7 @@ impl<T:Mul<Output = T>+Scalar+AddAssign> Mul for Matrix<T> {
             }
             result.push(row);
         }
-        Matrix(result)
+        Some(Matrix(result))
 
     }
 }
