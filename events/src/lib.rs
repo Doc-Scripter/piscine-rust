@@ -1,5 +1,4 @@
 use chrono::{Duration, TimeDelta};
-// use colored::Colorize;
 use colored::*;
 
 #[derive(Debug, Eq, PartialEq)]
@@ -38,7 +37,6 @@ impl fmt::Display for Notification {
     }
 }
 
-// use Event::*;
 
 impl<'a> Event<'a> {
     pub fn notify(&self) -> Notification {
