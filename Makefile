@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := delete_prefix
+folder := border_cross
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
