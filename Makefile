@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := border_cross
+folder := events
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
