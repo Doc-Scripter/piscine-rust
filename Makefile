@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := matrix_mult
+folder := lifetimes
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
