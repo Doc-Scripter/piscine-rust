@@ -12,20 +12,20 @@ impl Store {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Cart {
-    pub items: Vec<(String, f32)>,
+    pub receipt: Vec<(String, f32)>,
 }
 impl Cart {
     pub fn new() -> Cart {
         Cart {
-            items: Vec::<(String, f32)>::new(),
+            receipt: Vec::<(String, f32)>::new(),
         }
     }
     pub fn insert_item(&mut self, s: &Store, ele: String) {
         let amount = s.products.iter().find(|x| *x.0 == ele).unwrap().1;
-        self.items.push((ele, amount))
+        self.receipt.push((ele, amount))
     }
     pub fn generate_receipt(&mut self) -> Vec<f32> {
-        let res: Vec<f32> = self.items.iter().map(|x| x.1).collect();
+        let res: Vec<f32> = self.receipt.iter().map(|x| x.1).collect();
 
         if res.len() >= 3 {
             let mut groups = vec![Vec::<f32>::new()];
