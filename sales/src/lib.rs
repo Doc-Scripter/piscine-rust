@@ -32,7 +32,6 @@ impl Cart {
             let mut final_vec = Vec::new();
             let sets = res.len() / 3;
             
-            // Process complete sets of 3
             for i in 0..sets {
                 let mut group: Vec<f32> = res[i*3..i*3+3].to_vec();
                 group.sort_by(|a, b| a.total_cmp(b));
@@ -42,14 +41,11 @@ impl Cart {
                 
                 for price in group {
                     let discounted = price * (1.0 - discount_ratio);
-                    final_vec.push((discounted * 100.0).round() / 100.0);
+                    final_vec.push(round_to_two_decimals(discounted));
                 }
             }
             
-            // Add remaining items
             final_vec.extend(&res[sets * 3..]);
-            
-            // Sort final result
             final_vec.sort_by(|a, b| a.total_cmp(b));
             self.receipt = final_vec.clone();
             final_vec
@@ -58,4 +54,8 @@ impl Cart {
             res
         }
     }
+}
+
+fn round_to_two_decimals(value: f32) -> f32 {
+    (value * 100.0).round() / 100.0
 }
