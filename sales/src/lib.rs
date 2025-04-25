@@ -1,4 +1,3 @@
-
 #[derive(Debug, Clone, PartialEq)]
 pub struct Store {
     pub products: Vec<(String, f32)>,
@@ -27,39 +26,44 @@ impl Cart {
         self.items.push((ele, amount))
     }
     pub fn generate_receipt(&mut self) -> Vec<f32> {
-        let res: Vec<f32> = self.items.iter().map(|x| x.1).collect();
+        let  res: Vec<f32> = self.items.iter().map(|x| x.1).collect();
 
         if res.len() >= 3 {
-            let mut groups = vec![Vec::<f32>::new()];
-            groups.remove(0);
-            // let mut group = Vec::<f32>::new();
+            let mut groups = Vec::new();
             let sets = res.len() / 3;
-            let mut count=0;
-            for _i in 0..sets{
-                let next=count+3;
-                groups.push(res[count..next].to_vec());
-                count+=3;
+            
+            // Split into groups of 3
+            for i in 0..sets {
+                let start = i * 3;
+                groups.push(res[start..start + 3].to_vec());
             }
-            groups.iter_mut().for_each(|x| {
-                x.sort_by(|a,b|a.total_cmp(b));
-                let sum:f32=x.iter().sum();
-                let discount=x[0]/sum;
-                x.iter_mut().for_each(|y| {
-                    *y = ((*y - (*y * discount))*100.0).round()/100.0;
-                });
+
+            // Process each group
+            let mut final_vec = Vec::new();
+            for mut group in groups {
+                group.sort_by(|a, b| a.total_cmp(b));
+                let sum: f32 = group.iter().sum();
+                let discount = group[0] / sum;
                 
-            });
-            let mut final_vec = Vec::<f32>::new();
-            groups.iter().for_each(|x| {
-                final_vec.append(&mut x.clone());
-            });
-            // println!("{:?}",groups);
-            final_vec.sort_by(|a,b|a.total_cmp(b));
+                for val in group.iter_mut() {
+                    *val = ((*val - (*val * discount)) * 100.0).round() / 100.0;
+                }
+                final_vec.extend(group);
+            }
+
+            // Add remaining items
+            let remaining = res.len() % 3;
+            if remaining > 0 {
+                final_vec.extend(&res[sets * 3..]);
+            }
+
+            // Sort and update receipt
+            final_vec.sort_by(|a, b| a.total_cmp(b));
             self.receipt = final_vec.clone();
             final_vec
-
         } else {
-            return res;
+            self.receipt = res.clone();
+            res
         }
     }
 }
