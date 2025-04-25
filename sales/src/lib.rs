@@ -1,3 +1,4 @@
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Store {
     pub products: Vec<(String, f32)>,
@@ -11,59 +12,54 @@ impl Store {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Cart {
-    pub receipt: Vec<(String, f32)>,
+    pub items: Vec<(String, f32)>,
+    receipt: Vec<f32>,
 }
 impl Cart {
     pub fn new() -> Cart {
         Cart {
-            receipt: Vec::<(String, f32)>::new(),
+            items: Vec::<(String, f32)>::new(),
+            receipt: Vec::<f32>::new(),
         }
     }
     pub fn insert_item(&mut self, s: &Store, ele: String) {
         let amount = s.products.iter().find(|x| *x.0 == ele).unwrap().1;
-        self.receipt.push((ele, amount))
+        self.items.push((ele, amount))
     }
     pub fn generate_receipt(&mut self) -> Vec<f32> {
-        let mut res: Vec<(String, f32)> = self.receipt.clone();
-        let amounts: Vec<f32> = res.iter().map(|x| x.1).collect();
+        let res: Vec<f32> = self.items.iter().map(|x| x.1).collect();
 
-        if amounts.len() >= 3 {
+        if res.len() >= 3 {
             let mut groups = vec![Vec::<f32>::new()];
             groups.remove(0);
-
-            let sets = amounts.len() / 3;
-            let mut count = 0;
-            for _i in 0..sets {
-                let next = count + 3;
-                groups.push(amounts[count..next].to_vec());
-                count += 3;
+            // let mut group = Vec::<f32>::new();
+            let sets = res.len() / 3;
+            let mut count=0;
+            for _i in 0..sets{
+                let next=count+3;
+                groups.push(res[count..next].to_vec());
+                count+=3;
             }
-
             groups.iter_mut().for_each(|x| {
-                x.sort_by(|a, b| a.total_cmp(b));
-                let sum: f32 = x.iter().sum();
-                let discount = x[0] / sum;
+                x.sort_by(|a,b|a.total_cmp(b));
+                let sum:f32=x.iter().sum();
+                let discount=x[0]/sum;
                 x.iter_mut().for_each(|y| {
-                    *y = ((*y - (*y * discount)) * 100.0).round() / 100.0; // Round to 2 decimal places
+                    *y = ((*y - (*y * discount))*100.0).round()/100.0;
                 });
+                
             });
-
-            // Flatten the groups back into a single vector
             let mut final_vec = Vec::<f32>::new();
             groups.iter().for_each(|x| {
                 final_vec.append(&mut x.clone());
             });
+            // println!("{:?}",groups);
+            final_vec.sort_by(|a,b|a.total_cmp(b));
+            self.receipt = final_vec.clone();
+            final_vec
 
-            // Update the receipt with the discounted values
-            for (i, amount) in final_vec.iter().enumerate() {
-                res[i].1 = *amount;
-            }
+        } else {
+            return res;
         }
-
-        // Update the Cart's receipt
-        self.receipt = res.clone();
-
-        // Return only the discounted amounts
-        res.iter().map(|x| x.1).collect()
     }
 }
