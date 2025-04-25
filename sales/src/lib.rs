@@ -13,7 +13,7 @@ impl Store {
 #[derive(Debug, Clone, PartialEq)]
 pub struct Cart {
     pub items: Vec<(String, f32)>,
-    receipt: Vec<f32>,
+   pub  receipt: Vec<f32>,
 }
 impl Cart {
     pub fn new() -> Cart {
