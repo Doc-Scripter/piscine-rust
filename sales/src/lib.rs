@@ -27,37 +27,29 @@ impl Cart {
     }
     pub fn generate_receipt(&mut self) -> Vec<f32> {
         let  res: Vec<f32> = self.items.iter().map(|x| x.1).collect();
-
+        
         if res.len() >= 3 {
-            let mut groups = Vec::new();
+            let mut final_vec = Vec::new();
             let sets = res.len() / 3;
             
-            // Split into groups of 3
+            // Process complete sets of 3
             for i in 0..sets {
-                let start = i * 3;
-                groups.push(res[start..start + 3].to_vec());
-            }
-
-            // Process each group
-            let mut final_vec = Vec::new();
-            for mut group in groups {
+                let mut group: Vec<f32> = res[i*3..i*3+3].to_vec();
                 group.sort_by(|a, b| a.total_cmp(b));
-                let sum: f32 = group.iter().sum();
-                let discount = group[0] / sum;
                 
-                for val in group.iter_mut() {
-                    *val = ((*val - (*val * discount)) * 100.0).round() / 100.0;
+                let total: f32 = group.iter().sum();
+                let discount_ratio = group[0] / total;
+                
+                for price in group {
+                    let discounted = price * (1.0 - discount_ratio);
+                    final_vec.push((discounted * 100.0).round() / 100.0);
                 }
-                final_vec.extend(group);
             }
-
+            
             // Add remaining items
-            let remaining = res.len() % 3;
-            if remaining > 0 {
-                final_vec.extend(&res[sets * 3..]);
-            }
-
-            // Sort and update receipt
+            final_vec.extend(&res[sets * 3..]);
+            
+            // Sort final result
             final_vec.sort_by(|a, b| a.total_cmp(b));
             self.receipt = final_vec.clone();
             final_vec
