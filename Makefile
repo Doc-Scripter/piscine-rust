@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := get_products
+folder := highest
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
