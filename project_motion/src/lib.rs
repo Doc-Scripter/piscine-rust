@@ -1,17 +1,36 @@
-
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub struct Object {
     pub x: f32,
     pub y: f32,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+// Custom implementation of PartialEq for Object to handle floating-point precision
+impl PartialEq for Object {
+    fn eq(&self, other: &Self) -> bool {
+        // Use a small epsilon for floating-point comparison
+        const EPSILON: f32 = 0.001;
+        (self.x - other.x).abs() < EPSILON && (self.y - other.y).abs() < EPSILON
+    }
+}
+
+#[derive(Debug, Clone)]
 pub struct ThrowObject {
     pub init_position: Object,
     pub init_velocity: Object,
     pub actual_position: Object,
     pub actual_velocity: Object,
     pub time: f32,
+}
+
+// Custom implementation of PartialEq for ThrowObject to handle floating-point precision
+impl PartialEq for ThrowObject {
+    fn eq(&self, other: &Self) -> bool {
+        self.init_position == other.init_position &&
+        self.init_velocity == other.init_velocity &&
+        self.actual_position == other.actual_position &&
+        self.actual_velocity == other.actual_velocity &&
+        (self.time - other.time).abs() < 0.001 // Small epsilon for time comparison
+    }
 }
 
 impl ThrowObject {
