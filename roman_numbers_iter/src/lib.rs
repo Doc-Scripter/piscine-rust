@@ -5,32 +5,22 @@ pub enum RomanDigit {
     Nulla,
     I, V, X, L, C, D, M,
 }
-// Define the four "powers" and subtractive composites in descending order
+
+// same ROMAN_MAP and From<u32> as you already have:
 const ROMAN_MAP: &[(u32, &[RomanDigit])] = &[
-    (1000, &[M]),
-    (900,  &[C, M]),
-    (500,  &[D]),
-    (400,  &[C, D]),
-    (100,  &[C]),
-    (90,   &[X, C]),
-    (50,   &[L]),
-    (40,   &[X, L]),
-    (10,   &[X]),
-    (9,    &[I, X]),
-    (5,    &[V]),
-    (4,    &[I, V]),
+    (1000, &[M]), (900, &[C, M]), (500, &[D]), (400, &[C, D]),
+    (100,  &[C]), (90,  &[X, C]), (50,  &[L]), (40,  &[X, L]),
+    (10,   &[X]), (9,   &[I, X]), (5,   &[V]), (4,   &[I, V]),
     (1,    &[I]),
 ];
 
-/// A roman number is just a sequence of RomanDigit
 #[derive(Clone, Debug, PartialEq)]
 pub struct RomanNumber(pub Vec<RomanDigit>);
 
 impl From<u32> for RomanNumber {
     fn from(mut n: u32) -> Self {
-        // special case zero
         if n == 0 {
-            return RomanNumber(vec![RomanDigit::Nulla]);
+            return RomanNumber(vec![Nulla]);
         }
         let mut digits = Vec::new();
         for &(value, pattern) in ROMAN_MAP {
@@ -43,31 +33,42 @@ impl From<u32> for RomanNumber {
     }
 }
 
-impl Iterator for RomanNumber {
-    type Item = RomanNumber;
-
-    /// Returns a new RomanNumber with the next digit in the sequence
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.0.is_empty() {
-            None
-        } else {
-            // Create a new RomanNumber with just the first digit
-            let digit = self.0.remove(0);
-            Some(RomanNumber(vec![digit]))
+impl RomanNumber {
+    /// Decode subtractive‐notation digits back into a u32.
+    fn to_int(&self) -> u32 {
+        // Map each digit to its value
+        let vals: Vec<u32> = self.0.iter().map(|d| match d {
+            &Nulla => 0,
+            &I     => 1,
+            &V     => 5,
+            &X     => 10,
+            &L     => 50,
+            &C     => 100,
+            &D     => 500,
+            &M     => 1000,
+        }).collect();
+        // Standard roman‐to‐int: if a smaller value precedes a larger, subtract it; otherwise add.
+        let mut total = 0;
+        for i in 0..vals.len() {
+            if i + 1 < vals.len() && vals[i] < vals[i+1] {
+                total -= vals[i];
+            } else {
+                total += vals[i];
+            }
         }
+        total
     }
 }
 
-// -- helper function for direct step‐counting tests (not strictly needed) --
-
-/// Compute the number of Collatz steps for n
-pub fn collatz(n: u64) -> usize {
-    if n < 2 { return 0; }
-    let mut count = 0;
-    let mut v = n;
-    while v != 1 {
-        v = if v % 2 == 0 { v/2 } else { 3*v + 1 };
-        count += 1;
+impl Iterator for RomanNumber {
+    type Item = RomanNumber;
+    fn next(&mut self) -> Option<Self::Item> {
+        // Always yield the "next" roman number
+        let curr_val = self.to_int();
+        let next_val = curr_val + 1;
+        let next_rn = RomanNumber::from(next_val);
+        // update ourselves so further calls continue counting up
+        self.0 = next_rn.0.clone();
+        Some(next_rn)
     }
-    count
 }
