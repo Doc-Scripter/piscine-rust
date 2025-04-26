@@ -1,10 +1,6 @@
 pub fn get_products(arr: Vec<usize>) -> Vec<usize> {
-    if arr.is_empty() {
-        return vec![];
-    }
-    
-    if arr.len() == 1 {
-        return arr;  // Return the original array for single element case
+    if arr.is_empty() || arr.len() == 1 {
+        return vec![];  // Return empty vector for both empty and single element arrays
     }
     
     arr.iter().enumerate().map(|(i, _)| {
@@ -29,7 +25,7 @@ mod tests {
 
     #[test]
     fn test_single_case() {
-        assert_eq!(get_products(vec![2]), vec![2]);
+        assert_eq!(get_products(vec![2]), vec![]);
     }
 
     #[test]
