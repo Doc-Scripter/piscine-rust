@@ -13,8 +13,10 @@ impl <'a>Numbers <'a>{
     }
 
     pub fn latest(&self) -> Option<u32> {
-        let num=self.numbers.last().expect("no elements in list");
-        Some(*num)
+    match self.numbers.last()  {
+        None => None,
+        Some(num) => Some(*num)
+    }
     }
 
     pub fn highest(&self) -> Option<u32> {
