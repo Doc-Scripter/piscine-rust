@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := highest
+folder := iterators
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
