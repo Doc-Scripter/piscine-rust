@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := roman_numbers_iter
+folder := slices_to_map
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
