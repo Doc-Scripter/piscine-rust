@@ -25,7 +25,14 @@ impl <'a>Numbers <'a>{
 
     pub fn highest_three(&self) -> Vec<u32> {
         if self.numbers.len()<=3{
-            return self.numbers.to_vec();
+            let mut  max :Vec<u32>=vec![];
+            let mut nums=self.numbers.to_vec();
+            nums.sort();
+            for _i in 0..self.numbers.len(){
+                max.push(nums[nums.len()-1]);
+                nums=nums[..nums.len()-1].to_vec();
+            }
+            max
         }else{
             let mut  max :Vec<u32>=vec![];
             let mut nums=self.numbers.to_vec();
