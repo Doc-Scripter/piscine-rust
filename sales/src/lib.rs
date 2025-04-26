@@ -57,5 +57,6 @@ impl Cart {
 }
 
 fn round_to_two_decimals(value: f32) -> f32 {
-    (value * 100.0).round() / 100.0
+    println!("{value}");
+    (value * 100.0).floor() / 100.0
 }
