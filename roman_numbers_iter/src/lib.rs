@@ -1,4 +1,3 @@
-
 pub use crate::RomanDigit::*;
 /// A single roman digit (including Nulla = 0).
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -6,7 +5,7 @@ pub enum RomanDigit {
     Nulla,
     I, V, X, L, C, D, M,
 }
-// Define the four “powers” and subtractive composites in descending order
+// Define the four "powers" and subtractive composites in descending order
 const ROMAN_MAP: &[(u32, &[RomanDigit])] = &[
     (1000, &[M]),
     (900,  &[C, M]),
@@ -45,15 +44,16 @@ impl From<u32> for RomanNumber {
 }
 
 impl Iterator for RomanNumber {
-    type Item = RomanDigit;
+    type Item = RomanNumber;
 
-    /// Yield one digit at a time, front-to-back.
+    /// Returns a new RomanNumber with the next digit in the sequence
     fn next(&mut self) -> Option<Self::Item> {
         if self.0.is_empty() {
             None
         } else {
-            // remove at index 0 to yield in stored order
-            Some(self.0.remove(0))
+            // Create a new RomanNumber with just the first digit
+            let digit = self.0.remove(0);
+            Some(RomanNumber(vec![digit]))
         }
     }
 }
@@ -71,5 +71,3 @@ pub fn collatz(n: u64) -> usize {
     }
     count
 }
-
-
