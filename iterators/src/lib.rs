@@ -39,29 +39,12 @@ impl Collatz {
 }
 
 pub fn collatz(n: u64) -> usize {
-    // Handle the edge case
-    if n == 0 {
-        return 0;
-    }
-    
-    // For n=1, the sequence is just [1], so there are 0 steps
-    if n == 1 {
+    // Handle edge cases
+    if n == 0 || n == 1 {
         return 0;
     }
     
     // Count the steps until we reach 1
-    // We start with n and count transitions until we reach 1
-    let mut count = 0;
-    let mut current = n;
-    
-    while current != 1 {
-        if current % 2 == 0 {
-            current = current / 2;
-        } else {
-            current = 3 * current + 1;
-        }
-        count += 1;
-    }
-    
-    count
+    // The number of steps is the number of elements in the sequence minus 1
+    Collatz::new(n).count() - 1
 }
