@@ -1,11 +1,12 @@
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Collatz {
     pub v: u64,
 }
 
 impl Iterator for Collatz {
-    type Item = u64;
+    type Item = Collatz;  // Changed to return Collatz struct instead of u64
+    
     fn next(&mut self) -> Option<Self::Item> {
         // Return None if we've reached 0 or if we're starting with 0
         if self.v == 0 {
@@ -27,8 +28,8 @@ impl Iterator for Collatz {
             self.v = 3 * self.v + 1;
         }
         
-        // Return the value we started with in this iteration
-        Some(current)
+        // Return the value we started with in this iteration as a Collatz struct
+        Some(Collatz { v: current })
     }
 }
 
@@ -39,14 +40,14 @@ impl Collatz {
 }
 
 pub fn collatz(n: u64) -> usize {
-    // Count the steps until we reach 1
-    // We subtract 1 because we don't count the final 1 as a step
+    // Handle the edge case
     if n == 0 {
         return 0;
     }
     
+    // Count the steps until we reach 1
     let steps = Collatz::new(n)
-        .take_while(|&x| x != 1)
+        .take_while(|x| x.v != 1)
         .count();
     
     steps
