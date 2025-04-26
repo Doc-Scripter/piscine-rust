@@ -1,5 +1,5 @@
 # Define shared variables at the top level
-folder := slices_to_map
+folder := step_iterator
 function:
 	cargo new $(folder)
 	cd $(folder)/src && touch lib.rs
